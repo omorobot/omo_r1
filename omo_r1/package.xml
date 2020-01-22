@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omo_r1</name>
+  <version>0.0.1</version>
+  <description>
+    ROS packages for the OMO R1 (meta package)
+  </description>
+  <license>Apache 2.0</license>
+  <author email="bishopearson@gmail.com">Bishop Pearson</author>
+  <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <!-- <exec_depend>omo_r1_bringup</exec_depend>
+  <exec_depend>omo_r1_description</exec_depend>
+  <exec_depend>omo_r1_example</exec_depend>
+  <exec_depend>omo_r1_navigation</exec_depend>
+  <exec_depend>omo_r1_slam</exec_depend> -->
+  <exec_depend>omo_r1_teleop</exec_depend>
+  <export><metapackage/></export>
+</package>
