@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   #diagnostic_msgs
   #omo_r1_msgs
+  message_generation
 )
 
 ################################################################################
@@ -26,6 +27,17 @@ find_package(catkin REQUIRED COMPONENTS
 # Declare ROS messages, services and actions
 ################################################################################
 
+add_message_files(
+   FILES
+   R1MotorStatus.msg
+   R1MotorStatusLR.msg
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
+
 ################################################################################
 # Declare ROS dynamic reconfigure parameters
 ################################################################################
@@ -34,7 +46,7 @@ find_package(catkin REQUIRED COMPONENTS
 # Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
-  CATKIN_DEPENDS roscpp std_msgs sensor_msgs # diagnostic_msgs omo_r1_msgs
+  CATKIN_DEPENDS roscpp std_msgs sensor_msgs message_runtime
 )
 
 ################################################################################

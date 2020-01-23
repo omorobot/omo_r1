@@ -1,0 +1,28 @@
+<launch>
+  <arg name="multi_robot_name" default=""/>
+  <arg name="set_lidar_frame_id" default="base_scan"/>
+  <arg name="set_port_motor" default="/dev/ttyMotor"/>
+  <arg name="set_port_lidar" default="/dev/ttyLiDAR"/>
+  <arg name="set_port_imu" default="/dev/ttyIMU"/>
+  <arg name="set_joy_en" default="0"/>
+
+  <include file="$(find omo_r1_bringup)/launch/omo_r1_imu.launch">
+    <arg name="set_port" value="$(arg set_port_imu)"/>
+  </include>
+
+  <include file="$(find omo_r1_bringup)/launch/omo_r1_motor.launch">
+    <arg name="set_port" value="$(arg set_port_motor)"/>
+  </include>
+
+  <!-- <node pkg="omo_r1_bringup" type="omo_r1_motor_node.py" name="omo_r1_motor_node" output="screen">
+      <param name="port" value="$(arg set_port_motor)"/>
+      <param name="baud" value="115200"/>
+      <param name="modelName" value="r1"/>
+      <param name="joy_enable" value="$(arg set_joy_en)"/>
+  </node> -->
+
+  <!--   <include file="$(find omo_r1_bringup)/launch/omo_r1_lidar.launch">
+    <arg name="set_frame_id" value="$(arg set_lidar_frame_id)"/>
+    <arg name="set_port" value="$(arg set_port_lidar)"/>
+  </include> -->
+</launch>
