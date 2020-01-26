@@ -10,10 +10,10 @@
     <param name="resolution_fixed"    type="bool"   value="true"/>
     <param name="auto_reconnect"    type="bool"   value="true"/>
     <param name="reversion"    type="bool"   value="false"/>
-    <param name="angle_min"    type="double" value="-90" />
-    <param name="angle_max"    type="double" value="90" />
-    <param name="range_min"    type="double" value="0.1" />
-    <param name="range_max"    type="double" value="3.5" />
+    <param name="angle_min"    type="double" value="-180" />
+    <param name="angle_max"    type="double" value="180" />
+    <param name="range_min"    type="double" value="0.12" />
+    <param name="range_max"    type="double" value="10.0" />
     <param name="ignore_array" type="string" value="" />
     <param name="samp_rate"    type="int"    value="9"/>
     <param name="frequency"    type="double" value="7"/>

@@ -151,8 +151,8 @@ class Robot:
       self.config.wheel_separation = 0.591        # Apply vehicle width for R1 version
       self.config.wheel_radius = 0.11       # Apply wheel radius for R1 version
       self.config.max_linear_speed_wheel = 1200.0  # Maximum speed can be applied to each wheel (mm/s)
-      self.config.max_lin_vel_x = 0.6        # Limited speed (m/s)
-      self.config.max_ang_vel_z = 0.1
+      self.config.max_lin_vel_x = 1.2        # Limited speed (m/s)
+      self.config.max_ang_vel_z = 1.0
       self.config.encoder.direction = 1.0
       self.config.encoder.PPR = 1000
       self.config.encoder.GearRatio = 15
