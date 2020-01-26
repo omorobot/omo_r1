@@ -59,7 +59,7 @@
     <maxVel>1.0</maxVel>
     <material>Gazebo/FlatBlack</material>
   </gazebo> -->
-<!--
+
   <gazebo reference="imu_link">
     <sensor type="imu" name="imu">
       <always_on>true</always_on>
@@ -67,7 +67,7 @@
     </sensor>
     <material>Gazebo/Grey</material>
   </gazebo>
--->
+
   <gazebo>
     <plugin name="omo_r1_controller" filename="libgazebo_ros_diff_drive.so">
       <commandTopic>cmd_vel</commandTopic>

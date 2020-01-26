@@ -333,13 +333,16 @@ class Robot:
 
       # print self.odom_pose.x, self.odom_pose.y, self.odom_pose.theta, self.odom_vel.x, self.odom_vel.w
 
+      parent_frame_id = "odom"
+      child_frame_id = "base_footprint"
+
       odom_orientation_quat = quaternion_from_euler(0, 0, self.odom_pose.theta)
-      self.odom_broadcaster.sendTransform((self.odom_pose.x, self.odom_pose.y, 0.), odom_orientation_quat, timestamp_now, 'base_link', 'odom')
+      self.odom_broadcaster.sendTransform((self.odom_pose.x, self.odom_pose.y, 0.), odom_orientation_quat, timestamp_now, child_frame_id, parent_frame_id)
       
       odom = Odometry()
       odom.header.stamp = timestamp_now
-      odom.header.frame_id = 'odom'
-      odom.child_frame_id = 'base_link'
+      odom.header.frame_id = parent_frame_id
+      odom.child_frame_id = child_frame_id
       odom.pose.pose = Pose(Point(self.odom_pose.x, self.odom_pose.y, 0.), Quaternion(*odom_orientation_quat))
       odom.twist.twist = Twist(Vector3(self.odom_vel.x, self.odom_vel.y, 0), Vector3(0, 0, self.odom_vel.w))
       

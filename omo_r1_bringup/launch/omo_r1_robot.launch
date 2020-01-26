@@ -14,15 +14,8 @@
     <arg name="set_port" value="$(arg set_port_motor)"/>
   </include>
 
-  <!-- <node pkg="omo_r1_bringup" type="omo_r1_motor_node.py" name="omo_r1_motor_node" output="screen">
-      <param name="port" value="$(arg set_port_motor)"/>
-      <param name="baud" value="115200"/>
-      <param name="modelName" value="r1"/>
-      <param name="joy_enable" value="$(arg set_joy_en)"/>
-  </node> -->
-
-  <!--   <include file="$(find omo_r1_bringup)/launch/omo_r1_lidar.launch">
+  <include file="$(find omo_r1_bringup)/launch/omo_r1_lidar.launch">
     <arg name="set_frame_id" value="$(arg set_lidar_frame_id)"/>
     <arg name="set_port" value="$(arg set_port_lidar)"/>
-  </include> -->
+  </include>
 </launch>

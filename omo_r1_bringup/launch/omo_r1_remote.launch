@@ -7,8 +7,7 @@
   </node>
 
   <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
-    <!-- <param name="use_gui" value="false"/> -->
-    <param name="use_gui" value="true"/>
+    <param name="use_gui" value="false"/>
     <param name="rate" value="50"/>
   </node>
 </launch>
