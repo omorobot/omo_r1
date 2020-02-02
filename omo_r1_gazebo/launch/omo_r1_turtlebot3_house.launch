@@ -12,7 +12,7 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find omo_r1_description)/urdf/omo_r1.urdf.xacro" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find omo_r1_gazebo)/sdf/omo_r1.gazebo.xacro" />
 
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model omo_r1 -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model omo_r1_sim -x $(arg x_pos) -y $(arg y_pos) -z $(arg z_pos) -param robot_description" />
 </launch>

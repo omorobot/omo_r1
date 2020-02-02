@@ -48,8 +48,8 @@
           </geometry>
           <material>
             <script>	      
-	            <uri>model://bot10/materials/scripts</uri>
-              <uri>model://bot10/materials/textures</uri>
+	            <uri>model://erica/elements/bot10/materials/scripts</uri>
+              <uri>model://erica/elements/bot10/materials/textures</uri>
               <name>bot10</name>
             </script>
 	      <!--<script>

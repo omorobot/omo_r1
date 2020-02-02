@@ -3,7 +3,7 @@
   <name>omo_r1_bringup</name>
   <version>0.0.1</version>
   <description>
-    roslaunch scripts for starting the OMO R1
+    OMO R1 robot package - launchers for robot bringup
   </description>
   <license>Apache 2.0</license>
   <author email="bishopearson@gmail.com">Bishop Pearson</author>

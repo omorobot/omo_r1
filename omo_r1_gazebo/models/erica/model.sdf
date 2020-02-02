@@ -24,7 +24,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -333,7 +333,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -642,7 +642,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -951,7 +951,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -1260,7 +1260,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -1569,7 +1569,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -2302,7 +2302,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://3d_printer/meshes/model.dae</uri>
+              <uri>model://erica/elements/3d_printer/meshes/model.dae</uri>
             </mesh>
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -2395,7 +2395,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://3d_printer/meshes/model.dae</uri>
+              <uri>model://erica/elements/3d_printer/meshes/model.dae</uri>
             </mesh>
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -2488,7 +2488,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://3d_printer/meshes/model.dae</uri>
+              <uri>model://erica/elements/3d_printer/meshes/model.dae</uri>
             </mesh>
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -2581,7 +2581,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://3d_printer/meshes/model.dae</uri>
+              <uri>model://erica/elements/3d_printer/meshes/model.dae</uri>
             </mesh>
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -2674,7 +2674,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://3d_printer/meshes/model.dae</uri>
+              <uri>model://erica/elements/3d_printer/meshes/model.dae</uri>
             </mesh>
           </geometry>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -2767,7 +2767,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://3d_sofa/meshes/Sofa.stl</uri>
+              <uri>model://erica/elements/3d_sofa/meshes/Sofa.stl</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -2863,7 +2863,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://cabinet1/meshes/model.dae</uri>
+              <uri>model://erica/elements/cabinet1/meshes/model.dae</uri>
               <scale>0.15 0.15 0.15</scale>
             </mesh>
           </geometry>
@@ -2952,7 +2952,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://cabinet1/meshes/model.dae</uri>
+              <uri>model://erica/elements/cabinet1/meshes/model.dae</uri>
               <scale>0.15 0.15 0.15</scale>
             </mesh>
           </geometry>
@@ -3041,7 +3041,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://cabinet1/meshes/model.dae</uri>
+              <uri>model://erica/elements/cabinet1/meshes/model.dae</uri>
               <scale>0.15 0.15 0.15</scale>
             </mesh>
           </geometry>
@@ -3130,7 +3130,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://cabinet2/meshes/model.dae</uri>
+              <uri>model://erica/elements/cabinet2/meshes/model.dae</uri>
               <scale>0.15 0.15 0.15</scale>
             </mesh>
           </geometry>
@@ -3219,7 +3219,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://cabinet2/meshes/model.dae</uri>
+              <uri>model://erica/elements/cabinet2/meshes/model.dae</uri>
               <scale>0.15 0.15 0.15</scale>
             </mesh>
           </geometry>
@@ -4331,7 +4331,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://h_chair/meshes/chair.dae</uri>
+              <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -4640,7 +4640,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://h_chair/meshes/chair.dae</uri>
+              <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
               <scale>1 1 1</scale>
             </mesh>
           </geometry>
@@ -10105,7 +10105,7 @@
           <pose frame=''>0 0.32 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://kitchen/meshes/model.dae</uri>
+              <uri>model://erica/elements/kitchen/meshes/model.dae</uri>
               <scale>0.055 0.055 0.06</scale>
             </mesh>
           </geometry>
@@ -10255,7 +10255,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -10564,7 +10564,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -10873,7 +10873,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -11182,7 +11182,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -11491,7 +11491,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -11800,7 +11800,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -12535,7 +12535,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -12844,7 +12844,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -13153,7 +13153,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -13462,7 +13462,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -13771,7 +13771,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -14080,7 +14080,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -14815,7 +14815,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -15124,7 +15124,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -15433,7 +15433,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -15742,7 +15742,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -16051,7 +16051,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -16360,7 +16360,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -17090,7 +17090,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://tv/meshes/model.dae</uri>
+                <uri>model://erica/elements/tv/meshes/model.dae</uri>
                 <scale>2.5 2.5 2.5</scale>
               </mesh>
             </geometry>
@@ -17143,7 +17143,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -17452,7 +17452,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -17761,7 +17761,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -18070,7 +18070,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -18379,7 +18379,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -18688,7 +18688,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -19418,7 +19418,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://tv/meshes/model.dae</uri>
+                <uri>model://erica/elements/tv/meshes/model.dae</uri>
                 <scale>2.5 2.5 2.5</scale>
               </mesh>
             </geometry>
@@ -19471,7 +19471,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -19780,7 +19780,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -20089,7 +20089,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -20398,7 +20398,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -20707,7 +20707,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -21016,7 +21016,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -21746,7 +21746,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://tv/meshes/model.dae</uri>
+                <uri>model://erica/elements/tv/meshes/model.dae</uri>
                 <scale>2.5 2.5 2.5</scale>
               </mesh>
             </geometry>
@@ -21799,7 +21799,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -22108,7 +22108,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -22417,7 +22417,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -22726,7 +22726,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -23035,7 +23035,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -23344,7 +23344,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -24074,7 +24074,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://tv/meshes/model.dae</uri>
+                <uri>model://erica/elements/tv/meshes/model.dae</uri>
                 <scale>2.5 2.5 2.5</scale>
               </mesh>
             </geometry>
@@ -24127,7 +24127,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -24436,7 +24436,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -24745,7 +24745,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -25054,7 +25054,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -25363,7 +25363,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -25672,7 +25672,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://h_chair/meshes/chair.dae</uri>
+                <uri>model://erica/elements/h_chair/meshes/chair.dae</uri>
                 <scale>1 1 1</scale>
               </mesh>
             </geometry>
@@ -26402,7 +26402,7 @@
             <pose frame=''>0 0 0 0 -0 0</pose>
             <geometry>
               <mesh>
-                <uri>model://tv/meshes/model.dae</uri>
+                <uri>model://erica/elements/tv/meshes/model.dae</uri>
                 <scale>2.5 2.5 2.5</scale>
               </mesh>
             </geometry>
@@ -26454,7 +26454,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://tv16/meshes/tv16.stl</uri>
+              <uri>model://erica/elements/tv16/meshes/tv16.stl</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>
@@ -26510,7 +26510,7 @@
           <pose frame=''>0 0 0 0 -0 0</pose>
           <geometry>
             <mesh>
-              <uri>model://tv16/meshes/tv16.stl</uri>
+              <uri>model://erica/elements/tv16/meshes/tv16.stl</uri>
               <scale>0.1 0.1 0.1</scale>
             </mesh>
           </geometry>

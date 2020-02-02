@@ -3,7 +3,7 @@
   <name>omo_r1_teleop</name>
   <version>0.0.1</version>
   <description>
-    Provides teleoperation using keyboard for OMO R1 robot.
+    OMO R1 robot package - Teleoperation tools.
   </description>
   <license>BSD</license>
   <author>Melonee Wise</author>

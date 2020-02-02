@@ -38,7 +38,7 @@ find_package(gazebo REQUIRED)
 # Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
-  CATKIN_DEPENDS roscpp std_msgs sensor_msgs geometry_msgs nav_msgs tf gazebo_ros
+  CATKIN_DEPENDS std_msgs sensor_msgs geometry_msgs nav_msgs tf gazebo_ros
   DEPENDS gazebo
 )
 
@@ -55,7 +55,7 @@ include_directories(
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY launch models rviz worlds 
+install(DIRECTORY launch models rviz sdf worlds 
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 

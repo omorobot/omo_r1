@@ -1,7 +1,6 @@
 <?xml version="1.0" ?>
 <robot name="omo_r1" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find omo_r1_description)/urdf/common_properties.xacro"/>
-  <xacro:include filename="$(find omo_r1_description)/urdf/omo_r1.gazebo.xacro"/>
 
   <link name="base_footprint"/>
 
@@ -15,7 +14,7 @@
     <visual>
       <origin xyz="0.097 0.276 0.19" rpy="3.14 0 -1.57"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/bases/R1_body.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/bases/omo_r1_body.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="light_black"/>
     </visual>
@@ -23,7 +22,7 @@
     <collision>
       <origin xyz="0.097 0.276 0.19" rpy="3.14 0 -1.57"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/bases/R1_body.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/bases/omo_r1_body.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
@@ -47,7 +46,7 @@
     <visual>
       <origin xyz="-0.1105 -0.06 0.1104" rpy="-1.57 0 0"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/wheels/wheel.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/wheels/omo_r1_wheel.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="dark"/>
     </visual>
@@ -55,7 +54,7 @@
     <collision>
       <origin xyz="-0.1105 -0.06 0.1104" rpy="-1.57 0 0"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/wheels/wheel.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/wheels/omo_r1_wheel.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
@@ -79,7 +78,7 @@
     <visual>
       <origin xyz="-0.110 0.06 -0.1103" rpy="1.57 0 0"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/wheels/wheel.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/wheels/omo_r1_wheel.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="dark"/>
     </visual>
@@ -87,7 +86,7 @@
     <collision>
       <origin xyz="-0.110 0.06 -0.1103" rpy="1.57 0 0"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/wheels/wheel.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/wheels/omo_r1_wheel.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
@@ -99,29 +98,6 @@
                izz="2.0712558e-03" />
       </inertial>
   </link>
-
-  <!-- <joint name="caster_back_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="caster_back_link"/>
-    <origin xyz="-0.33 0.0 0.06" rpy="0 0 0"/>
-  </joint>
-
-  <link name="caster_back_link">
-    <collision>
-      <origin xyz="0 0.000 -0.133" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.01 0.01 0.01"/>
-      </geometry>
-    </collision>
-
-    <inertial>
-      <origin xyz="0 0 0" />
-      <mass value="0.005" />
-      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
-               iyy="0.001" iyz="0.0"
-               izz="0.001" />
-    </inertial>
-  </link> -->
 
   <joint name="caster_back_right_joint" type="fixed">
     <parent link="base_link"/>
@@ -187,7 +163,7 @@
     <visual>
       <origin xyz="0 0 0.0" rpy="0.0 0 0.0"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/sensors/lds.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/sensors/omo_r1_lidar.stl" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="dark"/>
     </visual>
@@ -195,7 +171,7 @@
     <collision>
       <origin xyz="0 0 0.0" rpy="0.0 0 0.0"/>
       <geometry>
-        <mesh filename="package://omo_r1_description/meshes/sensors/lds.stl" scale="0.001 0.001 0.001"/>
+        <mesh filename="package://omo_r1_description/meshes/sensors/omo_r1_lidar.stl" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
 
@@ -207,21 +183,4 @@
                izz="0.001" />
     </inertial>
   </link>
-<!--
-  <joint name="camera_joint" type="fixed">
-    <origin xyz="0.073 -0.011 0.084" rpy="0 0 0"/>
-    <parent link="base_link"/>
-    <child link="camera_link"/>
-  </joint>
-
-  <link name="camera_link">
-    <collision>
-      <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.015 0.030 0.027"/>
-      </geometry>
-    </collision>
-  </link>
--->
-
 </robot>

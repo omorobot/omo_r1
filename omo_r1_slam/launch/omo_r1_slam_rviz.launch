@@ -1,0 +1,4 @@
+<launch>
+  <!-- launching rviz node -->
+  <node pkg="rviz" type="rviz" name="rviz" required="true" args="-d $(find omo_r1_slam)/rviz/omo_r1_gmapping.rviz"/>
+</launch>

@@ -18,6 +18,10 @@
   <depend>gazebo_ros</depend>
   <exec_depend>gazebo</exec_depend>
   <export>
+    <gazebo_ros plugin_path="${prefix}/../../lib"/>
+    <gazebo_ros plugin_path="/home/leon/catkin_ws/devel/lib"/>
+    <gazebo_ros gazebo_plugin_path="${prefix}/../../lib"/>
+    <gazebo_ros gazebo_plugin_path="/home/leon/catkin_ws/devel/lib"/>
     <gazebo_ros gazebo_media_path="${prefix}"/>
     <gazebo_ros gazebo_model_path="${prefix}/models"/>
   </export>
