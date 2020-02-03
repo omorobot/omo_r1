@@ -8,6 +8,11 @@
   <license>Apache 2.0</license>
   <author email="bishopearson@gmail.com">Bishop Pearson</author>
   <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <url type="wiki">http://wiki.ros.org/turtlebot3_bringup</url>
+  <url type="website">http://omorobot.com</url>
+  <url type="forum">http://omorobot1.synology.me</url>
+  <url type="repository">https://github.com/bishopearson/omo_r1</url>
+  <url type="bugtracker">https://github.com/bishopearson/omo_r1/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>message_generation</depend>
   <depend>roscpp</depend>
