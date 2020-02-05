@@ -13,7 +13,7 @@ from time import sleep
 
 from omo_r1_bringup.msg import R1MotorStatusLR, R1MotorStatus
 from std_msgs.msg import UInt8, Int8, Int16, Float64, Float32
-from sensor_msgs.msg import Imu
+from sensor_msgs.msg import Imu, JointState
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist, TwistWithCovariance, Pose, Point, Vector3, Quaternion
 from tf.broadcaster import TransformBroadcaster
@@ -29,6 +29,11 @@ class OdomVel(object):
    x = 0.0
    y = 0.0
    w = 0.0
+
+class Joint(object):
+   joint_name = ['wheel_left_joint', 'wheel_right_joint']
+   joint_pos = [0.0, 0.0]
+   joint_vel = [0.0, 0.0]
 
 class RobotConfig(object):
    body_circumference = 0        # circumference length of robot for spin in place
@@ -208,7 +213,8 @@ class OMOR1MotorNode:
 
       # Storaging
       self.odom_pose = OdomPose()
-      self.odom_vel = OdomVel()     
+      self.odom_vel = OdomVel()
+      self.joint = Joint() 
 
       self.enc_left_tot_prev, self.enc_right_tot_prev = 0.0, 0.0   
       self.enc_offset_left, self.enc_offset_right = 0.0, 0.0
@@ -245,6 +251,7 @@ class OMOR1MotorNode:
 
       # publisher
       self.pub_motor_status = rospy.Publisher('motor/status', R1MotorStatusLR, queue_size=10)
+      self.pub_joint_states = rospy.Publisher('joint_states', JointState, queue_size=10)
       self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
       self.odom_broadcaster = TransformBroadcaster()
       
@@ -258,6 +265,9 @@ class OMOR1MotorNode:
    def reset_odometry(self):
       self.is_enc_offset_set = False
       self.is_imu_offset_set = False
+
+      self.joint.joint_pos = [0.0, 0.0]
+      self.joint.joint_vel = [0.0, 0.0]
 
    def cbTimerUpdateDriverData(self, event):
       self.packet_read_handler.read_packet()
@@ -285,6 +295,7 @@ class OMOR1MotorNode:
 
       self.updatePose(enc_left_tot, enc_right_tot)
 
+      self.updateJointStates(enc_left_tot, enc_right_tot, lin_vel_left_wheel, lin_vel_right_wheel)
          # status_left = R1MotorStatus(low_voltage = 0, overloaded = 0, power = 0,
          #                   encoder = self.enc_left, RPM = rpm_left_wheel, ODO = odom_left_wheel, speed = lin_vel_left_wheel)
          # status_right = R1MotorStatus(low_voltage = 0, overloaded = 0, power = 0,
@@ -356,7 +367,27 @@ class OMOR1MotorNode:
       odom.twist.twist = Twist(Vector3(self.odom_vel.x, self.odom_vel.y, 0), Vector3(0, 0, self.odom_vel.w))
       
       self.odom_pub.publish(odom)
-                    
+
+   def updateJointStates(self, enc_left_tot, enc_right_tot, lin_vel_left_wheel, lin_vel_right_wheel):
+      wheel_ang_left = enc_left_tot * self.config.encoder_step / self.config.wheel_radius
+      wheel_ang_right = enc_right_tot * self.config.encoder_step / self.config.wheel_radius
+
+      wheel_ang_vel_left = lin_vel_left_wheel * 0.001 / self.config.wheel_radius
+      wheel_ang_vel_right = lin_vel_right_wheel * 0.001 / self.config.wheel_radius
+
+      self.joint.joint_pos = [wheel_ang_left, wheel_ang_right]
+      self.joint.joint_vel = [wheel_ang_vel_left, wheel_ang_vel_right]
+
+      joint_states = JointState()
+      joint_states.header.frame_id = "base_link"
+      joint_states.header.stamp = rospy.Time.now()
+      joint_states.name = self.joint.joint_name
+      joint_states.position = self.joint.joint_pos
+      joint_states.velocity = self.joint.joint_vel
+      joint_states.effort = []
+
+      self.pub_joint_states.publish(joint_states)
+
    def main(self):
       rospy.spin()
 
