@@ -1,9 +1,9 @@
-obstacle_range: 11.0 #3.0
-raytrace_range: 12.0 #3.5
+obstacle_range: 11.0
+raytrace_range: 12.0
 
 footprint: [[-0.475, -0.355], [-0.475, 0.355], [0.201, 0.355], [0.201, -0.355]]
 
-inflation_radius: 0.5
+inflation_radius: 1.0
 cost_scaling_factor: 3.0
 
 map_type: costmap
