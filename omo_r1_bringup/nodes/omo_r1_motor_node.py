@@ -247,7 +247,6 @@ class OMOR1MotorNode:
       rospy.Subscriber("imu", Imu, self.cbSubIMUTMsg, queue_size=1)                 # imu data subscriber
 
       # publisher
-      self.pub_motor_status = rospy.Publisher('motor/status', R1MotorStatusLR, queue_size=10)
       self.pub_joint_states = rospy.Publisher('joint_states', JointState, queue_size=10)
       self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
       self.odom_broadcaster = TransformBroadcaster()
