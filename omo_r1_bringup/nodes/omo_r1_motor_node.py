@@ -8,14 +8,11 @@ import rospy
 import serial
 import io
 import math
-import os
 from time import sleep
 
-from omo_r1_bringup.msg import R1MotorStatusLR, R1MotorStatus
-from std_msgs.msg import UInt8, Int8, Int16, Float64, Float32
 from sensor_msgs.msg import Imu, JointState
 from nav_msgs.msg import Odometry
-from geometry_msgs.msg import Twist, TwistWithCovariance, Pose, Point, Vector3, Quaternion
+from geometry_msgs.msg import Twist, Pose, Point, Vector3, Quaternion
 from tf.broadcaster import TransformBroadcaster
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
@@ -296,13 +293,6 @@ class OMOR1MotorNode:
       self.updatePose(enc_left_tot, enc_right_tot)
 
       self.updateJointStates(enc_left_tot, enc_right_tot, lin_vel_left_wheel, lin_vel_right_wheel)
-         # status_left = R1MotorStatus(low_voltage = 0, overloaded = 0, power = 0,
-         #                   encoder = self.enc_left, RPM = rpm_left_wheel, ODO = odom_left_wheel, speed = lin_vel_left_wheel)
-         # status_right = R1MotorStatus(low_voltage = 0, overloaded = 0, power = 0,
-         #                   encoder = self.enc_right, RPM = rpm_right_wheel, ODO = odom_right_wheel, speed = lin_vel_right_wheel)
-         # self.pub_motor_status.publish(R1MotorStatusLR(header=Header(stamp=rospy.Time.now()),
-         #                   Vspeed = lin_vel_x, Vomega = ang_vel_z,
-         #                   left=status_left, right=status_right))        
 
    def cbSubIMUTMsg(self, imu_msg):
       self.orientation[0] = imu_msg.orientation.x
