@@ -15,6 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   nav_msgs
   geometry_msgs
+  tf
+  omo_r1_description
 )
 
 ################################################################################
@@ -34,7 +36,7 @@ catkin_python_setup()
 # Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
-  CATKIN_DEPENDS roscpp std_msgs sensor_msgs
+  CATKIN_DEPENDS rospy sensor_msgs nav_msgs geometry_msgs tf omo_r1_description
 )
 
 ################################################################################
@@ -45,7 +47,7 @@ catkin_package(
 # Install
 ################################################################################
 catkin_install_python(PROGRAMS
-  nodes/omo_r1_motor_driver.py
+  nodes/omo_r1_motor_node.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

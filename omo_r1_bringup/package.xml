@@ -14,15 +14,12 @@
   <url type="repository">https://github.com/bishopearson/omo_r1</url>
   <url type="bugtracker">https://github.com/bishopearson/omo_r1/issues</url>
   <buildtool_depend>catkin</buildtool_depend>
-  <depend>message_generation</depend>
-  <depend>roscpp</depend>
-  <depend>std_msgs</depend>
-  <depend>diagnostic_msgs</depend>
+  <depend>rospy</depend>
   <depend>sensor_msgs</depend>
-  <depend>omo_r1_msgs</depend>
-  <exec_depend>message_runtime</exec_depend>
-  <exec_depend>omo_r1_description</exec_depend>
-  <exec_depend>omo_r1_teleop</exec_depend>
+  <depend>nav_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf</depend>
+  <depend>omo_r1_description</depend>
   <exec_depend>joint_state_publisher</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>rosserial_python</exec_depend>

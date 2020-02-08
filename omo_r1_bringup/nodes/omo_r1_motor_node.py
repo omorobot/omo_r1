@@ -35,8 +35,8 @@ class Joint(object):
 class RobotConfig(object):
    body_circumference = 0        # circumference length of robot for spin in place
    wheel_separation = 0.0        # Default Vehicle width in mm
-   wheel_circumference = 0
    wheel_radius = 0.0            # Wheel radius
+   wheel_circumference = 0       # Wheel circumference
    max_lin_vel_wheel = 0.0       # Maximum speed can be applied to each wheel (mm/s)
    max_lin_vel_x = 0             # Speed limit for vehicle (m/s)
    max_ang_vel_z = 0             # Rotational Speed limit for vehicle (rad/s)
@@ -253,7 +253,7 @@ class OMOR1MotorNode:
       self.odom_broadcaster = TransformBroadcaster()
       
       # timer
-      rospy.Timer(rospy.Duration(0.01), self.cbTimerUpdateDriverData)
+      rospy.Timer(rospy.Duration(0.01), self.cbTimerUpdateDriverData) # 10 hz update
       self.odom_pose.timestamp = rospy.Time.now().to_nsec()
       self.reset_odometry()
 
