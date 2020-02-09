@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omo_r1_teleop</name>
+  <version>0.0.1</version>
+  <description>
+    OMO R1 robot package - Teleoperation tools.
+  </description>
+  <license>BSD</license>
+  <author>Melonee Wise</author>
+  <author email="bishopearson@gmail.com">Bishop Pearson</author>
+  <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <depend>geometry_msgs</depend>
+</package>

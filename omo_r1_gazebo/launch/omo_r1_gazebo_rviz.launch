@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find omo_r1_bringup)/launch/omo_r1_remote.launch"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find omo_r1_gazebo)/rviz/omo_r1_gazebo_model.rviz"/>
+</launch>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omo_r1_gazebo</name>
+  <version>0.0.1</version>
+  <description>
+    Gazebo simulation package for the OMO R1
+  </description>
+  <license>Apache 2.0</license>
+  <author email="bishopearson@gmail.com">Bishop Pearson</author>
+  <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>tf</depend>
+  <depend>gazebo_ros</depend>
+  <exec_depend>gazebo</exec_depend>
+  <export>
+    <gazebo_ros plugin_path="${prefix}/../../lib"/>
+    <gazebo_ros plugin_path="/home/leon/catkin_ws/devel/lib"/>
+    <gazebo_ros gazebo_plugin_path="${prefix}/../../lib"/>
+    <gazebo_ros gazebo_plugin_path="/home/leon/catkin_ws/devel/lib"/>
+    <gazebo_ros gazebo_media_path="${prefix}"/>
+    <gazebo_ros gazebo_model_path="${prefix}/models"/>
+  </export>
+</package>
