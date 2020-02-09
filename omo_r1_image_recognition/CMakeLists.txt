@@ -33,7 +33,7 @@ catkin_package()
 ################################################################################
 # Install
 ################################################################################
-install(DIRECTORY launch rviz
+install(DIRECTORY launch markers rviz
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
