@@ -19,6 +19,7 @@
   <depend>nav_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>tf</depend>
+  <depend>usb_cam</depend>
   <depend>omo_r1_description</depend>
   <exec_depend>joint_state_publisher</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>

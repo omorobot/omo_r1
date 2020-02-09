@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omo_r1_image_recognition</name>
+  <version>0.0.1</version>
+  <description>
+    OMO R1 robot package - launchers for image recognition application.
+  </description>
+  <license>Apache 2.0</license>
+  <author email="bishopearson@gmail.com">Bishop Pearson</author>
+  <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>omo_r1_bringup</exec_depend>
+  <exec_depend>ar_track_alvar</exec_depend>
+  <exec_depend>ar_track_alvar_msgs</exec_depend>
+</package>
