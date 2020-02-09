@@ -1,5 +1,5 @@
 <launch>
-  <include file="$(find omo_r1_image_recognition)/launch/omo_r1_ar_track.launch"/>
+  <!-- <include file="$(find omo_r1_image_recognition)/launch/omo_r1_ar_track.launch"/> -->
 
   <include file="$(find omo_r1_bringup)/launch/omo_r1_remote.launch"/>
 
