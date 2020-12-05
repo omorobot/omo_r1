@@ -1,0 +1,20 @@
+image_width: 640
+image_height: 480
+camera_name: omo_r1_camera
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [472.509223, 0.000000, 311.550845, 0.000000, 471.864858, 222.639912, 0.000000, 0.000000, 1.000000]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [-0.397798, 0.157736, 0.000400, -0.000575, 0.000000]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [375.124176, 0.000000, 306.981355, 0.000000, 0.000000, 416.994446, 218.066298, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]

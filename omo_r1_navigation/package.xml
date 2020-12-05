@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omo_r1_navigation</name>
+  <version>0.0.1</version>
+  <description>
+    OMO R1 robot package - launchers which uses optimized move base parameters.
+  </description>
+  <license>Apache 2.0</license>
+  <author email="bishopearson@gmail.com">Bishop Pearson</author>
+  <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>omo_r1_bringup</exec_depend>
+</package>

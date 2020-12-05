@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>omo_r1_description</name>
+  <version>0.0.1</version>
+  <description>
+    OMO R1 robot package - robot description
+  </description>
+  <license>Apache 2.0</license>
+  <author email="bishopearson@gmail.com">Bishop Pearson</author>
+  <maintainer email="bishopearson@gmail.com">Bishop Pearson</maintainer>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>urdf</depend>
+  <depend>xacro</depend>
+</package>
