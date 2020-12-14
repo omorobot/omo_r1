@@ -1,9 +1,10 @@
 <launch>
   <arg name="set_port" default="/dev/ttyMotor"/>
+  <arg name="set_odom_mode" default="wheel_only"/>
   <node pkg="omo_r1_bringup" type="omo_r1_motor_node.py" name="omo_r1_motor_node" output="screen">
       <param name="port" value="$(arg set_port)"/>
       <param name="baud" value="115200"/>
-      <param name="odom_mode" value="wheel_only"/>
+      <param name="odom_mode" value="$(arg set_odom_mode)"/>
       <param name="modelName" value="r1"/>
   </node>
 </launch>
