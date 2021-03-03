@@ -18,7 +18,14 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   usb_cam
   omo_r1_description
+  message_generation
 )
+
+add_service_files(
+  FILES
+  ResetOdom.srv
+)
+
 
 ################################################################################
 # Setup for python modules and scripts
@@ -38,6 +45,11 @@ catkin_python_setup()
 ################################################################################
 catkin_package(
   CATKIN_DEPENDS rospy sensor_msgs nav_msgs geometry_msgs tf usb_cam omo_r1_description
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
 )
 
 ################################################################################

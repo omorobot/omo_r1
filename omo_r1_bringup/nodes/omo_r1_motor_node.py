@@ -15,6 +15,7 @@ from nav_msgs.msg import Odometry
 from geometry_msgs.msg import Twist, Pose, Point, Vector3, Quaternion
 from tf.broadcaster import TransformBroadcaster
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
+from omo_r1_bringup.srv import ResetOdom, ResetOdomResponse
 
 class OdomPose(object):
    x = 0.0
@@ -251,6 +252,8 @@ class OMOR1MotorNode:
       self.pub_joint_states = rospy.Publisher('joint_states', JointState, queue_size=10)
       self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
       self.odom_broadcaster = TransformBroadcaster()
+
+      rospy.Service('reset_odom', ResetOdom, self.reset_odom_handle)
       
       # timer
       rospy.Timer(rospy.Duration(0.01), self.cbTimerUpdateDriverData) # 10 hz update
@@ -423,6 +426,13 @@ class OMOR1MotorNode:
       joint_states.effort = []
 
       self.pub_joint_states.publish(joint_states)
+
+   def reset_odom_handle(self, req):
+      self.odom_pose.x = req.x
+      self.odom_pose.y = req.y
+      self.odom_pose.theta = req.theta
+
+      return ResetOdomResponse()
 
    def main(self):
       rospy.spin()
