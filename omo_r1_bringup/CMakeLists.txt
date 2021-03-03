@@ -43,14 +43,15 @@ catkin_python_setup()
 ################################################################################
 # Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
-catkin_package(
-  CATKIN_DEPENDS rospy sensor_msgs nav_msgs geometry_msgs tf usb_cam omo_r1_description
-)
-
 generate_messages(
   DEPENDENCIES
   std_msgs
 )
+
+catkin_package(
+  CATKIN_DEPENDS rospy sensor_msgs nav_msgs geometry_msgs tf usb_cam omo_r1_description
+)
+
 
 ################################################################################
 # Build
