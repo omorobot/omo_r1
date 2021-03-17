@@ -16,5 +16,6 @@
   <exec_depend>omo_r1_slam</exec_depend>
   <exec_depend>omo_r1_teleop</exec_depend>
   <exec_depend>ydlidar</exec_depend>
+  <exec_depend>omo_r1_marker_tracker</exec_depend>
   <export><metapackage/></export>
 </package>
