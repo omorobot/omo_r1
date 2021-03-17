@@ -51,7 +51,7 @@ def sub_markers_callback(msg):
 
         print str(marker_id) + " ======"
         print x, y, z, length
-        print [r, p, y] * 180. / np.pi
+        print np.array([r, p, y]) * 180. / np.pi
 
 
     # idx = np.argmin(length)
