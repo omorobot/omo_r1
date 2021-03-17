@@ -25,26 +25,42 @@ def sub_odom_callback(msg):
 
 def sub_markers_callback(msg):
 
-    marker_id = []
-    length = []
-    x_pos = []
-    y_pos = []
-    marker_theta = []
+    # marker_id = []
+    # length = []
+    # x_pos = []
+    # y_pos = []
+    # z_pos = []
+    # marker_theta = []
 
     for each in msg.markers:
-        marker_id.append(each.id)
-        x_pos.append(each.pose.pose.position.x)
-        y_pos.append(each.pose.pose.position.y)
-        marker_theta.append(each.pose.pose.orientation.z)
-        length.append(np.sqrt(x_pos**2, y_pos**2))
+        # marker_id.append(each.id)
+        # x_pos.append(each.pose.pose.position.x)
+        # y_pos.append(each.pose.pose.position.y)
+        # z_pos.append(each.pose.pose.position.z)
+        # marker_theta.append(each.pose.pose.orientation.z)
+        # length.append(np.sqrt(x_pos**2, y_pos**2, z_pos**2))
 
-    idx = np.argmin(length)
-    target_x = x_pos(idx)
-    target_y = y_pos(idx)
-    target_marker_theta = marker_theta(idx)
-    target_id = marker_id(idx)
+        marker_id = int(each.id)
+        x = each.pose.pose.position.x
+        y = each.pose.pose.position.y
+        z = each.pose.pose.position.z
+        length = np.sqrt(x**2 + y**2 + z**2)
 
-    print idx, target_x, target_y, np.min(length)
+        r, p, y = euler_from_quaternion([each.pose.pose.orientation.x, each.pose.pose.orientation.y, 
+                                            each.pose.pose.orientation.z, each.pose.pose.orientation.w])
+
+        print str(marker_id) + " ======"
+        print x, y, z, length
+        print [r, p, y] * 180. / np.pi
+
+
+    # idx = np.argmin(length)
+    # target_x = x_pos(idx)
+    # target_y = y_pos(idx)
+    # target_marker_theta = marker_theta(idx)
+    # target_id = marker_id(idx)
+
+    # print idx, target_x, target_y, np.min(length)
 
 
 
