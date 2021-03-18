@@ -1,4 +1,4 @@
 <launch>
   <node pkg="omo_r1mini_simple_position_controller" type="vanilla_pos_ctrl_ac.py" name="vanilla_position_controller" output="screen" />
-  <rosparam command="load" file="$(find omo_r1mini_simple_position_controller)/config/controller_setting.yaml" />
+  <rosparam command="load" file="$(find omo_simple_position_controller)/config/controller_setting.yaml" />
 </launch>
