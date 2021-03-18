@@ -106,11 +106,11 @@ if __name__ == '__main__':
     
     pub = rospy.Publisher("/cmd_vel", Twist, queue_size = 1)
 
-    feedback = omo_r1mini_simple_position_controller.msg.VanillaPositionFeedback()
-    result = omo_r1mini_simple_position_controller.msg.VanillaPositionResult()
+    feedback = omo_simple_position_controller.msg.VanillaPositionFeedback()
+    result = omo_simple_position_controller.msg.VanillaPositionResult()
 
     robot_action = actionlib.SimpleActionServer(rospy.get_name(), 
-                                      omo_r1mini_simple_position_controller.msg.VanillaPositionAction, 
+                                      omo_simple_position_controller.msg.VanillaPositionAction, 
                                       execute_cb = execute_cb, auto_start = False)
 
     robot_action.start()
