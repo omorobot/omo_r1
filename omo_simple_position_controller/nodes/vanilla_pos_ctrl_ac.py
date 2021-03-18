@@ -10,7 +10,7 @@ from nav_msgs.msg import Odometry
 from tf.transformations import euler_from_quaternion
 
 import actionlib
-import omo_r1mini_simple_position_controller.msg
+import omo_simple_position_controller.msg
 from omo_r1_bringup.srv import ResetOdom, ResetOdomResponse
 
 def calc_errors(cur_pos, goal):
