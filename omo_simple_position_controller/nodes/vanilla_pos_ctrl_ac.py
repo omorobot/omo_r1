@@ -37,6 +37,15 @@ def robot_odom_sub(msg):
     cur_pos.y = msg.pose.pose.position.y
     cur_pos.theta = theta
 
+def call_reset_odom(x, y, th):
+    try:
+        rospy.wait_for_service('reset_odom')
+        reset_odom = rospy.ServiceProxy('reset_odom', ResetOdom)
+        reset_odom(x, y, th)
+        rospy.loginfo('Robot Odom is reset to (x, y, theta) = (0, 0, 0)')
+    except rospy.ServiceException as e:
+        rospy.loginfo("Service call failed: %s"%e)
+
 def execute_cb(goal):
     global cur_pos, pub, speed, dist_stop_condition
 
@@ -63,19 +72,13 @@ def execute_cb(goal):
             rospy.loginfo('Complete vanilla position control to (x, y) = (%1.2f, %1.2f)', goal.x, goal.y)
             rospy.loginfo('Residue Error is (translation, rotation(deg)) = (%1.2f, %1.2f)',
                                                             feedback.error_s, feedback.error_theta)
-            try:
-                rospy.wait_for_service('reset_odom')
-                reset_odom = rospy.ServiceProxy('reset_odom', ResetOdom)
-                reset_odom(0., 0., 0.)
-                rospy.loginfo('Robot Odom is reset to (x, y, theta) = (0, 0, 0)')
-            except rospy.ServiceException as e:
-                print("Service call failed: %s"%e)
-
+            call_reset_odom(0, 0, 0)
             break
 
         if robot_action.is_preempt_requested():
             rospy.loginfo('Request Preempted.')
             robot_action.set_preempted()
+            call_reset_odom(0, 0, 0)
             break
 
         rate.sleep() 
