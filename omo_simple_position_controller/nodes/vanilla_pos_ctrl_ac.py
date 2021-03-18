@@ -73,6 +73,11 @@ def execute_cb(goal):
 
             break
 
+        if robot_action.is_preempt_requested():
+            rospy.loginfo('Request Preempted.')
+            robot_action.set_preempted()
+            break
+
         rate.sleep() 
 
     result.x_result = cur_pos.x
