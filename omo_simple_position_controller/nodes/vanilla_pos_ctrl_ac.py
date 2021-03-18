@@ -11,7 +11,7 @@ from tf.transformations import euler_from_quaternion
 
 import actionlib
 import omo_r1mini_simple_position_controller.msg
-from omo_r1mini_bringup.srv import ResetOdom, ResetOdomResponse
+from omo_r1_bringup.srv import ResetOdom, ResetOdomResponse
 
 def calc_errors(cur_pos, goal):
     delta_y_ref = goal.y - cur_pos.y
