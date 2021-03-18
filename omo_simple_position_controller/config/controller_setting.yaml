@@ -1,0 +1,17 @@
+rotational_PID:
+    P : 0.8
+    I : 0.001
+    D : 0.0
+    max_state : 0.5
+    min_state : -0.5
+
+translation_PID:
+    P : 0.4
+    I : 0.01
+    D : 0.0
+    max_state : 0.2
+    min_state : -0.2
+
+robot_stop:
+    dist_stop_condition : 0.02
+    rotational_stop_condition : 0.02

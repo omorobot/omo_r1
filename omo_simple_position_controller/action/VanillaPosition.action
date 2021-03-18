@@ -1,0 +1,13 @@
+#goal definition
+float32 x
+float32 y
+float32 theta
+---
+#result definition
+float32 x_result
+float32 y_result
+float32 theta_result
+---
+#feedback
+float32 error_s
+float32 error_theta

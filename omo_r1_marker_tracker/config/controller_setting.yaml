@@ -9,8 +9,8 @@ translation_PID:
     P : 0.4
     I : 0.01
     D : 0.0
-    max_state : 0.2
-    min_state : -0.2
+    max_state : 0.15
+    min_state : -0.15
 
 robot_stop:
     dist_stop_condition : 0.02
@@ -18,3 +18,9 @@ robot_stop:
 
 marker_trace:
     error_s_max : 2.
+
+linear_model_for_target_pos:
+    x_slope : 1.
+    y_slope : 1.
+    x_bias : -0.1
+    y_bias : 0.
