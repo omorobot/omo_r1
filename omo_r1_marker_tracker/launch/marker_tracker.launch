@@ -1,4 +1,0 @@
-<launch>
-  <node pkg="omo_r1_marker_tracker" type="marker_tracker.py" name="marker_tracker" output="screen" />
-  <rosparam command="load" file="$(find omo_r1_marker_tracker)/config/controller_setting.yaml" />
-</launch>
