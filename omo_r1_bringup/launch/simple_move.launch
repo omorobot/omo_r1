@@ -1,0 +1,24 @@
+<launch>
+
+
+  <node pkg="move_basic" type="move_basic" respawn="false" name="move_basic" output="screen">
+
+  <param name="robot_width" value="0.50"/>
+  <param name="robot_front_length" value="0.5"/>
+  <param name="robot_back_length" value="0.5"/>
+
+  <param name="lateral_kp" value="5.0"/>
+  <param name="lateral_ki" value="0.0"/>
+  <param name="lateral_kd" value="60.0"/>
+
+  <param name="min_turning_velocity"             value="0.01"/>
+  <param name="max_turning_velocity"             value="0.1"/>
+  <param name="max_lateral_velocity"             value="0.1"/>
+  <param name="max_linear_velocity"             value="0.1"/>
+  <param name="min_linear_velocity"             value="0.01"/>
+  <param name="preferred_driving_frame"             value="fiducial_map"/>
+
+  </node>
+
+
+</launch>
