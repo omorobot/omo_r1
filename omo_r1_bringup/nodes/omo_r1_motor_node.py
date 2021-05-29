@@ -83,6 +83,10 @@ class PacketWriteHandler:
       if self._ph.get_port_state() == True:
          self._ph.write_port(packet)
 
+   def stop_peen(self):
+      self.write_packet("$SPEEN, 0")
+      sleep(0.05)
+
 class PacketReadHandler:
    _ph = None
 
