@@ -187,7 +187,10 @@ class PortHandler():
       self._ser.write(buffer + "\r\n")
 
    def read_port(self):
-      return self._ser_io.readline()
+      try:
+         return self._ser_io.readline()
+      except:
+         print "==> read_port in omo_r1_motor_node.py"
     
 class OMOR1MotorNode:
    def __init__(self):
