@@ -1,0 +1,6 @@
+<launch>
+	<include file="$(find omo_r1_bringup)/launch/omo_r1_remote.launch" />
+	
+	<include file="$(find aruco_detect)/launch/aruco_detect.launch" />
+	<include file="$(find fiducial_slam)/launch/fiducial_slam.launch" />
+</launch>
