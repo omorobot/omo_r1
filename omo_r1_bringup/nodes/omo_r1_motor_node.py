@@ -133,6 +133,7 @@ class PacketReadHandler:
    def read_packet(self):
       if self._ph.get_port_state() == True:
          whole_packet = self._ph.read_port()
+         print whole_packet
 
          if whole_packet:
             packet = whole_packet.split(",")
@@ -150,7 +151,7 @@ class PacketReadHandler:
                elif header.startswith('QDIFFV'):
                   self._wvel = [int(packet[1]), int(packet[2])]
             except:
-               print "==> IN read_packet"
+               print "==> IN read_packet except"
                pass
 
 class PortHandler():
