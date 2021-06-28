@@ -150,6 +150,7 @@ class PacketReadHandler:
                elif header.startswith('QDIFFV'):
                   self._wvel = [int(packet[1]), int(packet[2])]
             except:
+               print "==> IN read_packet"
                pass
 
 class PortHandler():
