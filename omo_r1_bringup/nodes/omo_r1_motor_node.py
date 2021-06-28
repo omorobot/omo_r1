@@ -193,7 +193,7 @@ class PortHandler():
       self._ser.write(buffer + "\r\n")
 
    def read_port(self):
-      return self._ser_io.readline().decode('utf-8', errors='replace') 
+      return self._ser_io.readline()#.decode('utf-8', errors='replace') 
     
 class OMOR1MotorNode:
    def __init__(self):
