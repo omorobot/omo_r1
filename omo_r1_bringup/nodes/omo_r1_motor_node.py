@@ -133,6 +133,7 @@ class PacketReadHandler:
    def read_packet(self):
       if self._ph.get_port_state() == True:
          whole_packet = self._ph.read_port()
+
          if whole_packet:
             packet = whole_packet.split(",")
             try:
@@ -169,6 +170,9 @@ class PortHandler():
    def set_port_handler(self, port_name, baud_rate):
       self._ser = serial.Serial(port_name, baud_rate)
 
+      self._ser.reset_input_buffer() 
+      self._ser.reset_output_buffer() 
+
       self._ser_io = io.TextIOWrapper(io.BufferedRWPair(self._ser, self._ser, 1), newline = '\r', line_buffering = True)
 
    def get_port_handler(self):
@@ -187,11 +191,7 @@ class PortHandler():
       self._ser.write(buffer + "\r\n")
 
    def read_port(self):
-      try:
-         return self._ser_io.readline()
-      except:
-         print "==> read_port in omo_r1_motor_node.py"
-         print self._ser_io.readline()
+      return self._ser_io.readline().decode('utf-8', errors='replace') 
     
 class OMOR1MotorNode:
    def __init__(self):
@@ -210,7 +210,7 @@ class OMOR1MotorNode:
       self.packet_write_handler.write_register(3, '0') # 'QVW'
       self.packet_write_handler.write_register(4, '0') # 'QRPM'
       self.packet_write_handler.write_periodic_query_enable(1)
-      self.packet_write_handler.write_periodic_query_value(20)
+      self.packet_write_handler.write_periodic_query_value(100)
          
       self.packet_read_handler = PacketReadHandler(self.port_handler)
 
