@@ -21,8 +21,9 @@ def move_lift_pos():
 
 def callback(data):
     rospy.loginfo("lift_pose X : %s", data)
-    cmd = "$LTMOV,"+str(data)
-    ser.write(cmd+"\r\n")
+    cmd = "$LTMOV,"+str(data)+"\r\n"
+    ser.write(cmd)
+    print cmd
 
 if __name__ == '__main__':
 	move_lift_pos()
