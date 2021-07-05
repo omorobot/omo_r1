@@ -9,6 +9,8 @@ from std_msgs.msg import Int32
 port_name = rospy.get_param('~port', '/dev/ttyUSB1')
 baud_rate = rospy.get_param('~baud', 115200)
 
+print port_name, baud_rate
+
 ser = serial.Serial(port_name, baud_rate)
 
 def move_lift_pos():
