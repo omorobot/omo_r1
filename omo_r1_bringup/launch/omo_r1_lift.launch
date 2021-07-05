@@ -1,0 +1,7 @@
+<launch>
+  <arg name="set_port" default="/dev/ttyUSB1"/>
+  <node pkg="omo_r1_bringup" type="omo_r1_lift.py" name="omo_r1_lift_node" output="screen">
+      <param name="port" value="$(arg set_port)"/>
+      <param name="baud" value="115200"/>
+  </node>
+</launch>
