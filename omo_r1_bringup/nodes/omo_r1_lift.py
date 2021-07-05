@@ -6,7 +6,7 @@ import serial
 from time import sleep
 from std_msgs.msg import Int32
 
-port_name = rospy.get_param('~port', '/dev/ttyUSB1')
+port_name = rospy.get_param('~port', '/dev/ttyUSB0')
 baud_rate = rospy.get_param('~baud', 115200)
 
 print port_name, baud_rate
