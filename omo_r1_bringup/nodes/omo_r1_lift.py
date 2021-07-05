@@ -17,6 +17,8 @@ def move_lift_pos():
     rospy.init_node('move_lift', anonymous=False)
     
     rospy.Subscriber("/lift_pose", Int32, callback)
+    ser.write("$LTENB\r\n")
+    sleep(0.1)
     rospy.spin()
 
 def callback(data):
