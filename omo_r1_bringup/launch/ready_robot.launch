@@ -1,0 +1,11 @@
+<launch>
+	<arg name="set_port" default="/dev/ttyUSB0"/>
+	<arg name="set_lift_port" default="/dev/ttyUSB1"/>
+	<include file="$(find omo_r1_bringup)/launch/omo_r1_motor.launch">
+		<arg name="port" value="$(arg set_port)"/>
+	</include>
+	<include file="$(find omo_r1_bringup)/launch/omo_r1_camera.launch" />
+	<include file="$(find omo_r1_bringup)/launch/omo_r1_lift.launch">
+		<arg name="port" value="$(arg set_lift_port)"/>
+	</include>
+</launch>
