@@ -212,7 +212,7 @@ class OMOR1MotorNode:
       self.packet_write_handler.write_register(3, '0') # 'QVW'
       self.packet_write_handler.write_register(4, '0') # 'QRPM'
       self.packet_write_handler.write_periodic_query_enable(1)
-      self.packet_write_handler.write_periodic_query_value(100)
+      self.packet_write_handler.write_periodic_query_value(50)
          
       self.packet_read_handler = PacketReadHandler(self.port_handler)
 
