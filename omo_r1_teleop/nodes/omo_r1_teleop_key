@@ -29,6 +29,8 @@
 
 import rospy
 from geometry_msgs.msg import Twist
+from std_msgs.msg import Int32
+
 import sys, select, os
 if os.name == 'nt':
   import msvcrt
@@ -111,10 +113,18 @@ def checkAngularLimitVelocity(vel):
 if __name__=="__main__":
     if os.name != 'nt':
         settings = termios.tcgetattr(sys.stdin)
-
+    
     rospy.init_node('omo_r1_teleop')
-    pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
 
+    robot_id = rospy.get_param('~id')
+    print(robot_id)
+    robot_path = 'robot'+robot_id+'/cmd_vel'
+    lift_path = 'robot'+robot_id+'/lift_pose'
+    print("CMD_PATH:"+robot_path)
+
+    pub = rospy.Publisher(robot_path, Twist, queue_size=10)
+    pub_lift = rospy.Publisher(lift_path, Int32)
+    lift_cmd = Int32()
     status = 0
     target_linear_vel   = 0.0
     target_angular_vel  = 0.0
@@ -147,6 +157,20 @@ if __name__=="__main__":
                 target_angular_vel  = 0.0
                 control_angular_vel = 0.0
                 print(vels(target_linear_vel, target_angular_vel))
+            elif key == '1' :
+                pub_lift.publish(100)
+            elif key == '2' :
+                pub_lift.publish(200)
+            elif key == '3' :
+                pub_lift.publish(300)
+            elif key == '4' :
+                pub_lift.publish(400)
+            elif key == '5' :
+                pub_lift.publish(500)
+            elif key == '6' :
+                pub_lift.publish(600)
+            elif key == '7' :
+                pub_lift.publish(700)
             else:
                 if (key == '\x03'):
                     break
