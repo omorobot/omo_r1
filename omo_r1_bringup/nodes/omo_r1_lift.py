@@ -15,8 +15,9 @@ ser = serial.Serial(port_name, baud_rate)
 
 def move_lift_pos():
     rospy.init_node('move_lift', anonymous=False)
-    
-    rospy.Subscriber("/lift_pose", Int32, callback)
+    my_id = rospy.get_param('~set_id', '1')
+    my_ros_path = "robot"+my_id
+    rospy.Subscriber(my_ros_path+"/lift_pose", Int32, callback)
     ser.write("$LTENB\r\n")
     sleep(0.1)
     rospy.spin()

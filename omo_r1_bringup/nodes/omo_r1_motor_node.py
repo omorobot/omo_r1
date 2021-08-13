@@ -200,6 +200,8 @@ class OMOR1MotorNode:
       # Open serial port
       port_name = rospy.get_param('~port', '/dev/ttyMotor')
       baud_rate = rospy.get_param('~baud', 115200)
+      my_id = rospy.get_param('~set_id', '1')
+      my_ros_path = "robot"+my_id
       self.odom_mode = rospy.get_param("~odom_mode", "wheel_only")
       self.port_handler = PortHandler(port_name, baud_rate)
       
@@ -251,12 +253,12 @@ class OMOR1MotorNode:
       rospy.loginfo('Serial port: %s', self.port_handler.get_port_name())
 
       # subscriber
-      rospy.Subscriber("cmd_vel", Twist, self.cbSubCmdVelTMsg, queue_size=1)        # command velocity data subscriber
+      rospy.Subscriber(my_ros_path+"/cmd_vel", Twist, self.cbSubCmdVelTMsg, queue_size=1)        # command velocity data subscriber
       rospy.Subscriber("imu", Imu, self.cbSubIMUTMsg, queue_size=1)                 # imu data subscriber
 
       # publisher
-      self.pub_joint_states = rospy.Publisher('joint_states', JointState, queue_size=10)
-      self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
+      self.pub_joint_states = rospy.Publisher(my_ros_path+'/joint_states', JointState, queue_size=10)
+      self.odom_pub = rospy.Publisher(my_ros_path+"/odom", Odometry, queue_size=10)
       self.odom_broadcaster = TransformBroadcaster()
 
       rospy.Service('reset_odom', ResetOdom, self.reset_odom_handle)
