@@ -1,7 +1,7 @@
 <launch>
 	<arg name="set_port" default="/dev/ttyUSB0"/>
 	<arg name="set_lift_port" default="/dev/ttyUSB1"/>
-	<arg name="set_id" default="1" />
+	<arg name="set_id" default="0" />
 	<include file="$(find omo_r1_bringup)/launch/omo_r1_motor.launch">
 		<arg name="set_id" value="$(arg set_id)"/>
 		<arg name="set_port" value="$(arg set_port)"/>

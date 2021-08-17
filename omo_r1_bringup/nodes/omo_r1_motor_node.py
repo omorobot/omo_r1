@@ -200,8 +200,11 @@ class OMOR1MotorNode:
       # Open serial port
       port_name = rospy.get_param('~port', '/dev/ttyMotor')
       baud_rate = rospy.get_param('~baud', 115200)
-      my_id = rospy.get_param('~set_id', '1')
-      my_ros_path = "robot"+my_id
+      my_id = rospy.get_param('~set_id', '0')
+      my_ros_path = ""
+      if my_id != '0':
+         my_ros_path = "robot"+my_id
+
       self.odom_mode = rospy.get_param("~odom_mode", "wheel_only")
       self.port_handler = PortHandler(port_name, baud_rate)
       
