@@ -87,6 +87,32 @@ class PacketWriteHandler:
       self.write_packet("$SPEEN, 0")
       sleep(0.05)
 
+   def stop_callback(self):
+      self.write_packet("$SCBEN, 0")
+      sleep(0.05)
+      
+class ReadLine:
+   def __init__(self, s):
+      self.buf = bytearray()
+      self.s = s
+
+   def readline(self):
+      i = self.buf.find(b"\n")
+      if i >= 0:
+         r = self.buf[:i+1]
+         self.buf = self.buf[i+1:]
+         return r
+      while True:
+         i = max(1, min(2048, self.s.in_waiting))
+         data = self.s.read(i)
+         i = data.find(b"\n")
+         if i >= 0:
+            r = self.buf + data[:i+1]
+            self.buf[0:] = data[i+1:]
+            return r
+         else:
+            self.buf.extend(data)
+
 class PacketReadHandler:
    _ph = None
 
@@ -160,6 +186,7 @@ class PortHandler():
    _baud_rate = None
    _ser = None
    _ser_io = None
+   _rl = None
 
    def __init__(self, port_name, baud_rate):
       self._port_name = port_name
@@ -172,9 +199,8 @@ class PortHandler():
 
    def set_port_handler(self, port_name, baud_rate):
       self._ser = serial.Serial(port_name, baud_rate)
-
       self._ser_io = io.TextIOWrapper(io.BufferedRWPair(self._ser, self._ser, 1), newline = '\r', line_buffering = True)
-
+      self._rl = ReadLine(self._ser)
    def get_port_handler(self):
       return self._ser
 
@@ -191,7 +217,11 @@ class PortHandler():
       self._ser.write(buffer + "\r\n")
 
    def read_port(self):
-      return self._ser_io.readline()
+      return self._rl.readline()
+      #try: 
+      #   return (self._ser_io.readline().decode("utf-8")).strip('\r\n')
+      #except UnicodeDecodeError:
+      #   print('UnicodeDecodeError')
     
 class OMOR1MotorNode:
    def __init__(self):
@@ -203,15 +233,17 @@ class OMOR1MotorNode:
       
       # Set packet handler
       self.packet_write_handler = PacketWriteHandler(self.port_handler)
+      self.packet_write_handler.stop_peen()
+      self.packet_write_handler.stop_callback()
       self.packet_write_handler.write_init_odometry()
       self.packet_write_handler.write_register(0, 'QENCOD')
       self.packet_write_handler.write_register(1, 'QODO')
       self.packet_write_handler.write_register(2, 'QDIFFV')
       self.packet_write_handler.write_register(3, '0') # 'QVW'
       self.packet_write_handler.write_register(4, '0') # 'QRPM'
-      self.packet_write_handler.write_periodic_query_enable(1)
       self.packet_write_handler.write_periodic_query_value(20)
-         
+      self.packet_write_handler.write_periodic_query_enable(1)
+
       self.packet_read_handler = PacketReadHandler(self.port_handler)
 
       # Storaging
