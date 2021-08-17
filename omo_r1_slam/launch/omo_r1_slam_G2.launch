@@ -1,0 +1,7 @@
+<launch>
+  <!-- launching state publishers -->
+  <include file="$(find omo_r1_bringup)/launch/omo_r1_remote_G2.launch"/>
+
+  <!-- launching gmapping node and parameters -->
+  <include file="$(find omo_r1_slam)/launch/omo_r1_gmapping.launch"/>
+</launch>
