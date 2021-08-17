@@ -115,15 +115,17 @@ if __name__=="__main__":
         settings = termios.tcgetattr(sys.stdin)
     
     rospy.init_node('omo_r1_teleop')
-
     robot_id = rospy.get_param('~id')
+    ros_path = ""
+    if robot_id != '0':
+        ros_path = 'robot'+robot_id+'/cmd_vel'
+        ros_path = 'robot'+robot_id+'/lift_pose'
+  
     print(robot_id)
-    robot_path = 'robot'+robot_id+'/cmd_vel'
-    lift_path = 'robot'+robot_id+'/lift_pose'
-    print("CMD_PATH:"+robot_path)
+    print("CMD_PATH:"+ros_path)
 
-    pub = rospy.Publisher(robot_path, Twist, queue_size=10)
-    pub_lift = rospy.Publisher(lift_path, Int32)
+    pub = rospy.Publisher(ros_path+"/cmd_vel", Twist, queue_size=10)
+    pub_lift = rospy.Publisher(ros_path+"/lift_pose", Int32)
     lift_cmd = Int32()
     status = 0
     target_linear_vel   = 0.0
