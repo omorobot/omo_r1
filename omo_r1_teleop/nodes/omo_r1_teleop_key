@@ -118,8 +118,7 @@ if __name__=="__main__":
     robot_id = rospy.get_param('~id')
     ros_path = ""
     if robot_id != '0':
-        ros_path = 'robot'+robot_id+'/cmd_vel'
-        ros_path = 'robot'+robot_id+'/lift_pose'
+        ros_path = 'robot'+robot_id
   
     print(robot_id)
     print("CMD_PATH:"+ros_path)
