@@ -5,10 +5,10 @@
 
 import sys
 import rospy
-import serial
-import io
 import math
 from time import sleep
+from omo_r1_packet_handler import PacketHandler
+from omo_r1d2_packet_handler import PacketHandler2
 
 from sensor_msgs.msg import Imu, JointState
 from nav_msgs.msg import Odometry
@@ -22,6 +22,7 @@ class OdomPose(object):
    y = 0.0
    theta = 0.0
    timestamp = 0
+   pre_timestamp = 0
 
 class OdomVel(object):
    x = 0.0
@@ -46,206 +47,28 @@ class RobotConfig(object):
    encoder_step = 0
    encoder_pulse_per_wheel_rev = 0
    encoder_pulse_per_gear_rev = 0
-   
-class PacketWriteHandler:
-   _ph = None
-
-   def __init__(self, ph):
-      self._ph = ph
-
-   def __del__(self):
-      self._ph = None
-
-   def write_register(self, param1, param2):
-      self.write_packet("$SREGI," + str(param1) + ',' + param2)
-      sleep(0.05)
-
-   def write_periodic_query_value(self, param):
-      self.write_packet("$SPERI," + str(param))
-      sleep(0.05)
-
-   def write_periodic_query_enable(self, param):
-      self.write_packet("$SPEEN," + str(param))
-      sleep(0.05)
-
-   def write_init_odometry(self):
-      self.write_packet("$SODO")
-      sleep(0.05)
-
-   def write_wheel_velocity(self, wheel_l_lin_vel, wheel_r_lin_vel):
-      self.write_packet('$CDIFFV,{:.0f},{:.0f}'.format(wheel_l_lin_vel, wheel_r_lin_vel))
-
-   def write_base_velocity(self, lin_vel, ang_vel):
-      # lin_vel : mm/s, ang_vel : mrad/s
-      self.write_packet('$CVW,{:.0f},{:.0f}'.format(lin_vel, ang_vel))
-
-   def write_packet(self, packet):
-      if self._ph.get_port_state() == True:
-         self._ph.write_port(packet)
-
-   def stop_peen(self):
-      self.write_packet("$SPEEN, 0")
-      sleep(0.05)
-
-   def stop_callback(self):
-      self.write_packet("$SCBEN, 0")
-      sleep(0.05)
-      
-class ReadLine:
-   def __init__(self, s):
-      self.buf = bytearray()
-      self.s = s
-
-   def readline(self):
-      i = self.buf.find(b"\n")
-      if i >= 0:
-         r = self.buf[:i+1]
-         self.buf = self.buf[i+1:]
-         return r
-      while True:
-         i = max(1, min(2048, self.s.in_waiting))
-         data = self.s.read(i)
-         i = data.find(b"\n")
-         if i >= 0:
-            r = self.buf + data[:i+1]
-            self.buf[0:] = data[i+1:]
-            return r
-         else:
-            self.buf.extend(data)
-
-class PacketReadHandler:
-   _ph = None
-
-   # velocity
-   _vel = None
-   # encoder
-   _enc = None
-   # odometry
-   _odom = None
-   # rpm
-   _rpm = None
-   # wheel velocity
-   _wvel = None
-
-   def __init__(self, ph):
-      self._ph = ph
-
-      self._vel = [0.0, 0.0]
-      self._enc = [0.0, 0.0]
-      self._wodom = [0.0, 0.0]
-      self._rpm = [0.0, 0.0]
-      self._wvel = [0.0, 0.0]
-
-   def __del__(self):
-      self._ph = None
-
-      self._vel = None
-      self._enc = None
-      self._wodom = None
-      self._rpm = None
-      self._wvel = None
-
-   def get_base_velocity(self):
-      return self._vel
-   
-   def get_wheel_encoder(self):
-      return self._enc
-
-   def get_wheel_odom(self):
-      return self._wodom
-
-   def get_wheel_rpm(self):
-      return self._rpm
-   
-   def get_wheel_velocity(self):
-      return self._wvel
-
-   def read_packet(self):
-      if self._ph.get_port_state() == True:
-         whole_packet = self._ph.read_port()
-         if whole_packet:
-            packet = whole_packet.split(",")
-            try:
-               header = packet[0].split("#")[1]
-               
-               if header.startswith('QVW'):
-                  self._vel = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QENCOD'):
-                  self._enc = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QODO'):
-                  self._wodom = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QRPM'):
-                  self._rpm = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QDIFFV'):
-                  self._wvel = [int(packet[1]), int(packet[2])]
-            except:
-               pass
-
-class PortHandler():
-   _port_name = None
-   _baud_rate = None
-   _ser = None
-   _ser_io = None
-   _rl = None
-
-   def __init__(self, port_name, baud_rate):
-      self._port_name = port_name
-      self._baud_rate = baud_rate
-
-      self.set_port_handler(port_name, baud_rate)
-
-   def __del__(self):
-      self._ser.close()
-
-   def set_port_handler(self, port_name, baud_rate):
-      self._ser = serial.Serial(port_name, baud_rate)
-      self._ser_io = io.TextIOWrapper(io.BufferedRWPair(self._ser, self._ser, 1), newline = '\r', line_buffering = True)
-      self._rl = ReadLine(self._ser)
-   def get_port_handler(self):
-      return self._ser
-
-   def get_port_name(self):
-      return self._port_name
-
-   def get_port_baud_rate(self):
-      return self._baud_rate
-
-   def get_port_state(self):
-      return self._ser.isOpen()
-
-   def write_port(self, buffer):
-      self._ser.write(buffer + "\r\n")
-
-   def read_port(self):
-      return self._rl.readline()
-      #try: 
-      #   return (self._ser_io.readline().decode("utf-8")).strip('\r\n')
-      #except UnicodeDecodeError:
-      #   print('UnicodeDecodeError')
     
 class OMOR1MotorNode:
    def __init__(self):
-      # Open serial port
-      port_name = rospy.get_param('~port', '/dev/ttyMotor')
-      baud_rate = rospy.get_param('~baud', 115200)
       self.odom_mode = rospy.get_param("~odom_mode", "wheel_only")
-      self.port_handler = PortHandler(port_name, baud_rate)
+      self.model_name = rospy.get_param("~model_name", "r1")
+      # Open serial port
+      if self.model_name == 'r1':
+         self.ph = PacketHandler()
+         self.ph.incomming_info = ['QENCOD', 'QODO', 'QDIFFV']
+         self.ph.set_periodic_info(50)
+         sleep(0.1)
+      elif self.model_name == 'r1d2':
+         self.ph = PacketHandler2()
+         self.ph.incomming_info = ['ODO', 'VW', "POSE", "GYRO"]
+         self.use_gyro = rospy.get_param("/use_imu_during_odom_calc/use_imu")
+         self.ph.set_periodic_info(100)
+         sleep(0.1)
+      else :
+         rospy.loginfo('Entered model name:{} is not supported!'.format(self.model_name))
+         sys.exit()
+
       
-      # Set packet handler
-      self.packet_write_handler = PacketWriteHandler(self.port_handler)
-      self.packet_write_handler.stop_peen()
-      self.packet_write_handler.stop_callback()
-      self.packet_write_handler.write_init_odometry()
-      self.packet_write_handler.write_register(0, 'QENCOD')
-      self.packet_write_handler.write_register(1, 'QODO')
-      self.packet_write_handler.write_register(2, 'QDIFFV')
-      self.packet_write_handler.write_register(3, '0') # 'QVW'
-      self.packet_write_handler.write_register(4, '0') # 'QRPM'
-      self.packet_write_handler.write_periodic_query_value(20)
-      self.packet_write_handler.write_periodic_query_enable(1)
-
-      self.packet_read_handler = PacketReadHandler(self.port_handler)
-
       # Storaging
       self.odom_pose = OdomPose()
       self.odom_vel = OdomVel()
@@ -278,7 +101,7 @@ class OMOR1MotorNode:
       rospy.loginfo('Wheel circumference: {:04f}m'.format(self.config.wheel_circumference))
       rospy.loginfo('Encoder step: {:04f}m/pulse'.format(self.config.encoder_step))
       rospy.loginfo('Encoder pulses per wheel rev: {:.2f} pulses/rev'.format(self.config.encoder_pulse_per_wheel_rev))
-      rospy.loginfo('Serial port: %s', self.port_handler.get_port_name())
+      #rospy.loginfo('Serial port: %s', self.port_handler.get_port_name())
 
       # subscriber
       rospy.Subscriber("cmd_vel", Twist, self.cbSubCmdVelTMsg, queue_size=1)        # command velocity data subscriber
@@ -288,13 +111,17 @@ class OMOR1MotorNode:
       self.pub_joint_states = rospy.Publisher('joint_states', JointState, queue_size=10)
       self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
       self.odom_broadcaster = TransformBroadcaster()
+      self.pub_pose = rospy.Publisher("pose", Pose, queue_size=1000)
 
       rospy.Service('reset_odom', ResetOdom, self.reset_odom_handle)
       
       # timer
       rospy.Timer(rospy.Duration(0.01), self.cbTimerUpdateDriverData) # 10 hz update
-      self.odom_pose.timestamp = rospy.Time.now().to_nsec()
+      #self.odom_pose.timestamp = rospy.Time.now().to_nsec()
+      self.odom_pose.timestamp = rospy.Time.now()
+      self.odom_pose.pre_timestamp = rospy.Time.now()
       self.reset_odometry()
+      
 
       rospy.on_shutdown(self.__del__)
 
@@ -305,37 +132,132 @@ class OMOR1MotorNode:
       self.joint.joint_pos = [0.0, 0.0]
       self.joint.joint_vel = [0.0, 0.0]
 
+   def update_odometry(self, odo_l, odo_r, trans_vel, orient_vel, vel_z):
+      odo_l /= 1000.
+      odo_r /= 1000.
+      trans_vel /= 1000.
+      orient_vel /= 1000.
+
+      self.odom_pose.timestamp = rospy.Time.now()
+      dt = (self.odom_pose.timestamp - self.odom_pose.pre_timestamp).to_sec()
+      self.odom_pose.pre_timestamp = self.odom_pose.timestamp
+
+      if self.use_gyro:
+         self.calc_yaw.wheel_ang += orient_vel * dt
+         self.odom_pose.theta = self.calc_yaw.calc_filter(vel_z*math.pi/180., dt)
+         rospy.loginfo('R1mini state : whl pos %1.2f, %1.2f, gyro : %1.2f, whl odom : %1.2f, robot theta : %1.2f', 
+                           odo_l, odo_r, vel_z,
+                           self.calc_yaw.wheel_ang*180/math.pi, 
+                           self.odom_pose.theta*180/math.pi )
+      else:
+         self.odom_pose.theta += orient_vel * dt
+         #rospy.loginfo('R1mini state : wheel pos %s, %s, speed %s, %s',
+         #                odo_l, odo_r, trans_vel, orient_vel)
+
+      d_x = trans_vel * math.cos(self.odom_pose.theta) 
+      d_y = trans_vel * math.sin(self.odom_pose.theta) 
+
+      self.odom_pose.x += d_x * dt
+      self.odom_pose.y += d_y * dt
+
+      odom_orientation_quat = quaternion_from_euler(0, 0, self.odom_pose.theta)
+
+      self.odom_vel.x = trans_vel
+      self.odom_vel.y = 0.
+      self.odom_vel.w = orient_vel
+
+      odom = Odometry()
+      odom.header.frame_id = "odom"
+      odom.child_frame_id = "base_footprint"
+
+      self.odom_broadcaster.sendTransform((self.odom_pose.x, self.odom_pose.y, 0.), 
+                                             odom_orientation_quat, self.odom_pose.timestamp, 
+                                             odom.child_frame_id, odom.header.frame_id)
+
+      odom.header.stamp = rospy.Time.now()
+      odom.pose.pose = Pose(Point(self.odom_pose.x, self.odom_pose.y, 0.), Quaternion(*odom_orientation_quat))
+      odom.twist.twist = Twist(Vector3(self.odom_vel.x, self.odom_vel.y, 0), Vector3(0, 0, self.odom_vel.w))
+
+      self.odom_pub.publish(odom)
+
+   def updatePoseStates(self, roll, pitch, yaw):
+      #Added to publish pose orientation of IMU
+      pose = Pose()
+      pose.orientation.x = roll
+      pose.orientation.y = pitch
+      pose.orientation.z = yaw
+      self.pub_pose.publish(pose)
+
+   def updateJointStates(self, odo_l, odo_r, trans_vel, orient_vel):
+      odo_l /= 1000.
+      odo_r /= 1000.
+
+      wheel_ang_left = odo_l / self.wheel_radius
+      wheel_ang_right = odo_r / self.wheel_radius
+
+      wheel_ang_vel_left = (trans_vel - (self.wheel_base / 2.0) * orient_vel) / self.wheel_radius
+      wheel_ang_vel_right = (trans_vel + (self.wheel_base / 2.0) * orient_vel) / self.wheel_radius
+
+      self.joint.joint_pos = [wheel_ang_left, wheel_ang_right]
+      self.joint.joint_vel = [wheel_ang_vel_left, wheel_ang_vel_right]
+
+      joint_states = JointState()
+      joint_states.header.frame_id = "base_link"
+      joint_states.header.stamp = rospy.Time.now()
+      joint_states.name = self.joint.joint_name
+      joint_states.position = self.joint.joint_pos
+      joint_states.velocity = self.joint.joint_vel
+      joint_states.effort = []
+
+      self.pub_joint_states.publish(joint_states)
+
    def cbTimerUpdateDriverData(self, event):
-      self.packet_read_handler.read_packet()
+      #self.packet_read_handler.read_packet()
+      self.ph.read_packet()
+      if self.model_name == 'r1d2':
+         odo_l = self.ph._wodom[0]
+         odo_r = self.ph._wodom[1]
+         trans_vel = self.ph._vel[0]
+         orient_vel = self.ph._vel[1]
+         vel_z = self.ph._gyro[2]
+         roll_imu = self.ph._imu[0]
+         pitch_imu = self.ph._imu[1]
+         yaw_imu = self.ph._imu[2]
 
-      lin_vel_x = self.packet_read_handler.get_base_velocity()[0]
-      ang_vel_z = self.packet_read_handler.get_base_velocity()[1]
+         self.update_odometry(odo_l, odo_r, trans_vel, orient_vel, vel_z)
+         self.updateJointStates(odo_l, odo_r, trans_vel, orient_vel)
+         self.updatePoseStates(roll_imu, pitch_imu, yaw_imu)
+      else :   
+         lin_vel_x = self.ph.get_base_velocity()[0]
+         ang_vel_z = self.ph.get_base_velocity()[1]
 
-      odom_left_wheel = float(self.packet_read_handler.get_wheel_odom()[0])
-      odom_right_wheel = float(self.packet_read_handler.get_wheel_odom()[1])
+         odom_left_wheel = float(self.ph.get_wheel_odom()[0])
+         odom_right_wheel = float(self.ph.get_wheel_odom()[1])
+         rospy.loginfo('V= {}, W= {}, odo_l: {} odo_r:{}'.format(lin_vel_x, ang_vel_z,odom_left_wheel, odom_right_wheel))
+         rpm_left_wheel = int(self.ph.get_wheel_rpm()[0])
+         rpm_right_wheel = int(self.ph.get_wheel_rpm()[1])
 
-      rpm_left_wheel = int(self.packet_read_handler.get_wheel_rpm()[0])
-      rpm_right_wheel = int(self.packet_read_handler.get_wheel_rpm()[1])
+         lin_vel_left_wheel = int(self.ph.get_wheel_velocity()[0])
+         lin_vel_right_wheel = int(self.ph.get_wheel_velocity()[1])
 
-      lin_vel_left_wheel = int(self.packet_read_handler.get_wheel_velocity()[0])
-      lin_vel_right_wheel = int(self.packet_read_handler.get_wheel_velocity()[1])
+         enc_left_now = self.ph.get_wheel_encoder()[0]
+         enc_right_now = self.ph.get_wheel_encoder()[1]
+         #rospy.loginfo('enc_l: {} enc_r:{}'.format(enc_left_now, enc_right_now))
 
-      enc_left_now = self.packet_read_handler.get_wheel_encoder()[0]
-      enc_right_now = self.packet_read_handler.get_wheel_encoder()[1]
-      if self.is_enc_offset_set == False:
-         self.enc_offset_left = enc_left_now
-         self.enc_offset_right = enc_right_now
-         self.is_enc_offset_set = True
-      enc_left_tot = enc_left_now - self.enc_offset_left
-      enc_right_tot = enc_right_now - self.enc_offset_right
+         if self.is_enc_offset_set == False:
+            self.enc_offset_left = enc_left_now
+            self.enc_offset_right = enc_right_now
+            self.is_enc_offset_set = True
+         enc_left_tot = enc_left_now - self.enc_offset_left
+         enc_right_tot = enc_right_now - self.enc_offset_right
 
-      if self.odom_mode == "wheel_only":
-         self.updatePoseUsingWheel(enc_left_tot, enc_right_tot)
+         if self.odom_mode == "wheel_only":
+            self.updatePoseUsingWheel(enc_left_tot, enc_right_tot)
 
-      if self.odom_mode == "using_imu":
-         self.updatePoseUsingIMU(enc_left_tot, enc_right_tot)
-      
-      self.updateJointStates(enc_left_tot, enc_right_tot, lin_vel_left_wheel, lin_vel_right_wheel)
+         if self.odom_mode == "using_imu":
+            self.updatePoseUsingIMU(enc_left_tot, enc_right_tot)
+         
+         self.updateJointStates(enc_left_tot, enc_right_tot, lin_vel_left_wheel, lin_vel_right_wheel)
 
    def cbSubIMUTMsg(self, imu_msg):
       self.orientation[0] = imu_msg.orientation.x
@@ -353,8 +275,9 @@ class OMOR1MotorNode:
       angular_speed_left_wheel = (lin_vel_x - (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
       angular_speed_right_wheel = (lin_vel_x + (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
 
-      self.packet_write_handler.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
-
+      #self.packet_write_handler.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
+      self.ph.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
+   
    def updatePoseUsingWheel(self, enc_left_tot, enc_right_tot):
       enc_left_diff = enc_left_tot - self.enc_left_tot_prev
       enc_right_diff = enc_right_tot - self.enc_right_tot_prev
@@ -476,6 +399,7 @@ class OMOR1MotorNode:
    def __del__(self):
       print("terminating omo_r1_motor_node")
       rospy.loginfo("Shutting down. velocity will be 0")
+      self.ph.close_port()
 
 if __name__ == '__main__':
     rospy.init_node('omo_r1_motor_node')

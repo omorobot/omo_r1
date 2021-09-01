@@ -62,6 +62,7 @@ catkin_package(
 ################################################################################
 catkin_install_python(PROGRAMS
   nodes/omo_r1_motor_node.py
+  nodes/omo_r1_packet_handler.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

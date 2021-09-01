@@ -1,0 +1,9 @@
+motor_spec:
+    gear_ratio : 15
+    wheel_base : 0.591
+    wheel_radius : 0.11
+    enc_pulse : 4000
+
+use_imu_during_odom_calc:
+    use_imu : False
+    complementary_filter_coef : 0.5

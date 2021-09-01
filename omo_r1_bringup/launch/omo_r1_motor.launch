@@ -1,10 +1,12 @@
 <launch>
   <arg name="set_port" default="/dev/ttyMotor"/>
   <arg name="set_odom_mode" default="wheel_only"/>
+  <arg name="set_model" default="r1"/>
   <node pkg="omo_r1_bringup" type="omo_r1_motor_node.py" name="omo_r1_motor_node" output="screen">
       <param name="port" value="$(arg set_port)"/>
       <param name="baud" value="115200"/>
       <param name="odom_mode" value="$(arg set_odom_mode)"/>
-      <param name="modelName" value="r1"/>
+      <param name="model_name" value="$(arg set_model)"/>
   </node>
+    <rosparam command="load" file="$(find omo_r1_bringup)/config/robot_config.yaml" />
 </launch>
