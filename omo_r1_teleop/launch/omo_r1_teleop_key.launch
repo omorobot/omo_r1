@@ -1,4 +1,12 @@
 <launch>
+  <arg name="set_multi_robot_name" default=""/>
   <!-- keyboard teleoperation node for omo r1 robot -->
-  <node pkg="omo_r1_teleop" type="omo_r1_teleop_key" name="omo_r1_teleop_keyboard"  output="screen"/>
+  <node pkg="omo_r1_teleop" type="omo_r1_teleop_key" name="$(arg set_multi_robot_name)omo_r1_teleop_keyboard"  output="screen">
+    <param name="max_lin_vel" value="1.5" />
+    <param name="max_ang_vel" value="1.8" />
+    <param name="min_lin_vel" value="-1.5" />
+    <param name="lin_vel_step" value="0.05" />
+    <param name="ang_vel_step" value="0.1" />
+    <param name="tf_prefix" value="$(arg set_multi_robot_name)"/>
+  </node>
 </launch>

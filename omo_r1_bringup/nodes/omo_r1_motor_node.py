@@ -52,6 +52,7 @@ class OMOR1MotorNode:
    def __init__(self):
       self.odom_mode = rospy.get_param("~odom_mode", "wheel_only")
       self.model_name = rospy.get_param("~model_name", "r1")
+      self.tf_prefix = rospy.get_param("~tf_prefix", "")
       # Open serial port
       if self.model_name == 'r1':
          self.ph = PacketHandler()
@@ -104,16 +105,16 @@ class OMOR1MotorNode:
       #rospy.loginfo('Serial port: %s', self.port_handler.get_port_name())
 
       # subscriber
-      rospy.Subscriber("cmd_vel", Twist, self.cbSubCmdVelTMsg, queue_size=1)        # command velocity data subscriber
-      rospy.Subscriber("imu", Imu, self.cbSubIMUTMsg, queue_size=1)                 # imu data subscriber
+      rospy.Subscriber(self.tf_prefix+"/cmd_vel", Twist, self.cbSubCmdVelTMsg, queue_size=1)        # command velocity data subscriber
+      rospy.Subscriber(self.tf_prefix+"/imu", Imu, self.cbSubIMUTMsg, queue_size=1)                 # imu data subscriber
 
       # publisher
-      self.pub_joint_states = rospy.Publisher('joint_states', JointState, queue_size=10)
-      self.odom_pub = rospy.Publisher("odom", Odometry, queue_size=10)
+      self.pub_joint_states = rospy.Publisher(self.tf_prefix+'/joint_states', JointState, queue_size=10)
+      self.odom_pub = rospy.Publisher(self.tf_prefix+"/odom", Odometry, queue_size=10)
       self.odom_broadcaster = TransformBroadcaster()
-      self.pub_pose = rospy.Publisher("pose", Pose, queue_size=1000)
+      self.pub_pose = rospy.Publisher(self.tf_prefix+"/pose", Pose, queue_size=1000)
 
-      rospy.Service('reset_odom', ResetOdom, self.reset_odom_handle)
+      rospy.Service(self.tf_prefix+'/reset_odom', ResetOdom, self.reset_odom_handle)
       
       # timer
       rospy.Timer(rospy.Duration(0.01), self.cbTimerUpdateDriverData) # 10 hz update
@@ -167,8 +168,8 @@ class OMOR1MotorNode:
       self.odom_vel.w = orient_vel
 
       odom = Odometry()
-      odom.header.frame_id = "odom"
-      odom.child_frame_id = "base_footprint"
+      odom.header.frame_id = self.tf_prefix+"/odom"
+      odom.child_frame_id = self.tf_prefix+"/base_footprint"
 
       self.odom_broadcaster.sendTransform((self.odom_pose.x, self.odom_pose.y, 0.), 
                                              odom_orientation_quat, self.odom_pose.timestamp, 
@@ -202,7 +203,7 @@ class OMOR1MotorNode:
       self.joint.joint_vel = [wheel_ang_vel_left, wheel_ang_vel_right]
 
       joint_states = JointState()
-      joint_states.header.frame_id = "base_link"
+      joint_states.header.frame_id = self.tf_prefix+"/base_link"
       joint_states.header.stamp = rospy.Time.now()
       joint_states.name = self.joint.joint_name
       joint_states.position = self.joint.joint_pos
@@ -272,11 +273,14 @@ class OMOR1MotorNode:
       lin_vel_x = max(-self.config.max_lin_vel_x, min(self.config.max_lin_vel_x, lin_vel_x))
       ang_vel_z = max(-self.config.max_ang_vel_z, min(self.config.max_ang_vel_z, ang_vel_z))
 
-      angular_speed_left_wheel = (lin_vel_x - (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
-      angular_speed_right_wheel = (lin_vel_x + (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
-
-      #self.packet_write_handler.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
-      self.ph.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
+      if self.model_name == 'r1':
+         angular_speed_left_wheel = (lin_vel_x - (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
+         angular_speed_right_wheel = (lin_vel_x + (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
+         self.packet_write_handler.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
+      elif self.model_name == 'r1d2':
+         self.ph.write_base_velocity(lin_vel_x*1000, ang_vel_z*1000)
+         #self.ph.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, 
+         #                           angular_speed_right_wheel * self.config.wheel_radius * 1000)
    
    def updatePoseUsingWheel(self, enc_left_tot, enc_right_tot):
       enc_left_diff = enc_left_tot - self.enc_left_tot_prev
@@ -305,8 +309,8 @@ class OMOR1MotorNode:
       self.odom_vel.y = 0.0
       self.odom_vel.w = d_theta / d_time
 
-      parent_frame_id = "odom"
-      child_frame_id = "base_footprint"
+      parent_frame_id = self.tf_prefix+"/odom"
+      child_frame_id = self.tf_prefix+"/base_footprint"
 
       odom_orientation_quat = quaternion_from_euler(0, 0, self.odom_pose.theta)
       self.odom_broadcaster.sendTransform((self.odom_pose.x, self.odom_pose.y, 0.), odom_orientation_quat, timestamp_now, child_frame_id, parent_frame_id)
@@ -351,8 +355,8 @@ class OMOR1MotorNode:
       self.odom_vel.y = 0.0
       self.odom_vel.w = d_theta / d_time
 
-      parent_frame_id = "odom"
-      child_frame_id = "base_footprint"
+      parent_frame_id = self.tf_prefix+"/odom"
+      child_frame_id = self.tf_prefix+"/base_footprint"
 
       odom_orientation_quat = quaternion_from_euler(0, 0, self.odom_pose.theta)
       self.odom_broadcaster.sendTransform((self.odom_pose.x, self.odom_pose.y, 0.), odom_orientation_quat, timestamp_now, child_frame_id, parent_frame_id)
@@ -377,7 +381,7 @@ class OMOR1MotorNode:
       self.joint.joint_vel = [wheel_ang_vel_left, wheel_ang_vel_right]
 
       joint_states = JointState()
-      joint_states.header.frame_id = "base_link"
+      joint_states.header.frame_id = self.tf_prefix+"/base_link"
       joint_states.header.stamp = rospy.Time.now()
       joint_states.name = self.joint.joint_name
       joint_states.position = self.joint.joint_pos

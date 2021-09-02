@@ -98,13 +98,13 @@ def constrain(input, low, high):
 
     return input
 
-def checkLinearLimitVelocity(vel):
-    vel = constrain(vel, -OMO_R1_MAX_LIN_VEL, OMO_R1_MAX_LIN_VEL)
+def checkLinearLimitVelocity(vel, min, max):
+    vel = constrain(vel, min, max)
 
     return vel
 
-def checkAngularLimitVelocity(vel):
-    vel = constrain(vel, -OMO_R1_MAX_ANG_VEL, OMO_R1_MAX_ANG_VEL)
+def checkAngularLimitVelocity(vel, max):
+    vel = constrain(vel, -max, max)
 
     return vel
 
@@ -113,7 +113,15 @@ if __name__=="__main__":
         settings = termios.tcgetattr(sys.stdin)
 
     rospy.init_node('omo_r1_teleop')
-    pub = rospy.Publisher('cmd_vel', Twist, queue_size=10)
+    tf_prefix = rospy.get_param("~tf_prefix", "")
+    print("tf_prefix:"+tf_prefix)
+    max_lin_vel = rospy.get_param("~max_lin_vel") #OMO_R1mini_MAX_LIN_VEL = 1.20
+    min_lin_vel = rospy.get_param("~min_lin_vel")
+    max_ang_vel = rospy.get_param("~max_ang_vel") #OMO_R1mini_MAX_ANG_VEL = 1.80
+    lin_vel_step_size = rospy.get_param("~lin_vel_step")    #LIN_VEL_STEP_SIZE = 0.05
+    ang_vel_step_size = rospy.get_param("~ang_vel_step")    #ANG_VEL_STEP_SIZE = 0.1
+    
+    pub = rospy.Publisher(tf_prefix+'/cmd_vel', Twist, queue_size=10)
 
     status = 0
     target_linear_vel   = 0.0
@@ -126,19 +134,19 @@ if __name__=="__main__":
         while(1):
             key = getKey()
             if key == 'w' :
-                target_linear_vel = checkLinearLimitVelocity(target_linear_vel + LIN_VEL_STEP_SIZE)
+                target_linear_vel = checkLinearLimitVelocity(target_linear_vel + lin_vel_step_size, min_lin_vel, max_lin_vel)
                 status = status + 1
                 print(vels(target_linear_vel,target_angular_vel))
             elif key == 'x' :
-                target_linear_vel = checkLinearLimitVelocity(target_linear_vel - LIN_VEL_STEP_SIZE)
+                target_linear_vel = checkLinearLimitVelocity(target_linear_vel - lin_vel_step_size, min_lin_vel, max_lin_vel)
                 status = status + 1
                 print(vels(target_linear_vel,target_angular_vel))
             elif key == 'a' :
-                target_angular_vel = checkAngularLimitVelocity(target_angular_vel + ANG_VEL_STEP_SIZE)
+                target_angular_vel = checkAngularLimitVelocity(target_angular_vel + ang_vel_step_size, max_ang_vel)
                 status = status + 1
                 print(vels(target_linear_vel,target_angular_vel))
             elif key == 'd' :
-                target_angular_vel = checkAngularLimitVelocity(target_angular_vel - ANG_VEL_STEP_SIZE)
+                target_angular_vel = checkAngularLimitVelocity(target_angular_vel - ang_vel_step_size, max_ang_vel)
                 status = status + 1
                 print(vels(target_linear_vel,target_angular_vel))
             elif key == ' ' or key == 's' :
