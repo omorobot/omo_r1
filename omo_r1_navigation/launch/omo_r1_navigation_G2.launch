@@ -3,9 +3,12 @@
   <arg name="map_file" default="$(find omo_r1_navigation)/maps/map.yaml"/>
   <arg name="open_rviz" default="true"/>
   <arg name="move_forward_only" default="false"/>
+  <arg name="set_model_name" default="r1"/>
 
   <!-- OMO R1 -->
-  <include file="$(find omo_r1_bringup)/launch/omo_r1_remote_G2.launch"/>
+  <include file="$(find omo_r1_bringup)/launch/omo_r1_remote_G2.launch">
+    <arg name="set_model" value="$(arg set_model_name)"/>
+  </include>
 
   <!-- Map server -->
   <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>

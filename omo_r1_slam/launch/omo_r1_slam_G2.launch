@@ -3,7 +3,7 @@
   <arg name="set_multi_robot_name" default=""/>
   <!-- launching state publishers -->
   <include file="$(find omo_r1_bringup)/launch/omo_r1_remote_G2.launch">
-    <arg name="set_multi_robot_name" value="$(arg set_multi_robot_name)"/>
+    <arg name="multi_robot_name" value="$(arg set_multi_robot_name)"/>
   </include>
   <!-- launching gmapping node and parameters -->
   <include file="$(find omo_r1_slam)/launch/omo_r1_gmapping.launch"/>

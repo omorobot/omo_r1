@@ -5,7 +5,8 @@
   <node pkg="ydlidar_ros" type="ydlidar_node" name="$(arg set_multi_robot_name)omo_r1_ydlidar" output="screen" respawn="false" >
     <param name="port"         type="string" value="$(arg set_port)"/>  
     <param name="baudrate"     type="int"    value="230400"/>
-    <param name="frame_id"     type="string" value="$(arg set_multi_robot_name)/$(arg set_frame_id)"/>
+    <!--<param name="frame_id"     type="string" value="$(arg set_multi_robot_name)/$(arg set_frame_id)"/>-->
+    <param name="frame_id"     type="string" value="$(arg set_frame_id)"/>
     <remap from="scan" to="$(arg set_multi_robot_name)/scan"/>
     <param name="low_exposure"  type="bool"   value="false"/>
     <param name="resolution_fixed"    type="bool"   value="true"/>
