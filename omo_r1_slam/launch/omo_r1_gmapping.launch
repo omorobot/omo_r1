@@ -1,14 +1,16 @@
 <launch>
   <!-- Arguments -->
+  <arg name="set_model_name" default="r1"/>
+  <arg name="tf_prefix" default=""/>
   <arg name="set_base_frame" default="base_footprint"/>
   <arg name="set_odom_frame" default="odom"/>
   <arg name="set_map_frame"  default="map"/>
 
   <!-- Gmapping -->
   <node pkg="gmapping" type="slam_gmapping" name="omo_r1_slam_gmapping" output="screen">
-    <param name="base_frame" value="$(arg set_base_frame)"/>
-    <param name="odom_frame" value="$(arg set_odom_frame)"/>
-    <param name="map_frame"  value="$(arg set_map_frame)"/>
+    <param name="base_frame" value="$(arg tf_prefix)/$(arg set_base_frame)"/>
+    <param name="odom_frame" value="$(arg tf_prefix)/$(arg set_odom_frame)"/>
+    <param name="map_frame"  value="$(arg tf_prefix)/$(arg set_map_frame)"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="10.0"/>  <!-- YD LiDAR X4 Spec -->
     <param name="sigma" value="0.05"/>

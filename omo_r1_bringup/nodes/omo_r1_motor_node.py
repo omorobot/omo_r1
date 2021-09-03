@@ -56,6 +56,8 @@ class OMOR1MotorNode:
       # Open serial port
       if self.model_name == 'r1':
          self.ph = PacketHandler()
+         self.ph.write_odometry_reset()
+         sleep(0.1)
          self.ph.incomming_info = ['QENCOD', 'QODO', 'QDIFFV']
          self.ph.set_periodic_info(50)
          sleep(0.1)
@@ -63,7 +65,7 @@ class OMOR1MotorNode:
          self.ph = PacketHandler2()
          self.ph.incomming_info = ['ODO', 'VW', "POSE", "GYRO"]
          self.use_gyro = rospy.get_param("/use_imu_during_odom_calc/use_imu")
-         self.ph.set_periodic_info(100)
+         self.ph.set_periodic_info(50)
          sleep(0.1)
       else :
          rospy.loginfo('Entered model name:{} is not supported!'.format(self.model_name))
@@ -219,12 +221,12 @@ class OMOR1MotorNode:
          odo_l = self.ph._wodom[0]
          odo_r = self.ph._wodom[1]
          trans_vel = self.ph._vel[0]
-         orient_vel = self.ph._vel[1]
+         orient_vel = -self.ph._vel[1]
          vel_z = self.ph._gyro[2]
          roll_imu = self.ph._imu[0]
          pitch_imu = self.ph._imu[1]
          yaw_imu = self.ph._imu[2]
-
+         rospy.loginfo('V= {}, W= {}, odo_l: {} odo_r:{} gyro_z:{}'.format(trans_vel, orient_vel, odo_l, odo_r, vel_z))
          self.update_odometry(odo_l, odo_r, trans_vel, orient_vel, vel_z)
          self.updateJointStates(odo_l, odo_r, trans_vel, orient_vel)
          self.updatePoseStates(roll_imu, pitch_imu, yaw_imu)

@@ -109,8 +109,8 @@ class PacketHandler2:
         self.write_port("$cPEEN," + str(param))
         sleep(0.05)
 
-    def write_init_odometry(self):
-        self.write_port("$SODO")
+    def write_odometry_reset(self):
+        self.write_port("$cODO,0")
         sleep(0.05)
 
     def write_base_velocity(self, lin_vel, ang_vel):
