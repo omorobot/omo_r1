@@ -121,11 +121,10 @@ class OMOR1MotorNode:
       # timer
       rospy.Timer(rospy.Duration(0.01), self.cbTimerUpdateDriverData) # 10 hz update
       #self.odom_pose.timestamp = rospy.Time.now().to_nsec()
-      self.odom_pose.timestamp = rospy.Time.now()
+      self.odom_pose.timestamp = rospy.Time.now().to_nsec()
       self.odom_pose.pre_timestamp = rospy.Time.now()
       self.reset_odometry()
       
-
       rospy.on_shutdown(self.__del__)
 
    def reset_odometry(self):
@@ -278,7 +277,7 @@ class OMOR1MotorNode:
       if self.model_name == 'r1':
          angular_speed_left_wheel = (lin_vel_x - (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
          angular_speed_right_wheel = (lin_vel_x + (self.config.wheel_separation / 2.0) * ang_vel_z) / self.config.wheel_radius
-         self.packet_write_handler.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
+         self.ph.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, angular_speed_right_wheel * self.config.wheel_radius * 1000)
       elif self.model_name == 'r1d2':
          self.ph.write_base_velocity(lin_vel_x*1000, ang_vel_z*1000)
          #self.ph.write_wheel_velocity(angular_speed_left_wheel * self.config.wheel_radius * 1000, 
@@ -405,7 +404,8 @@ class OMOR1MotorNode:
    def __del__(self):
       print("terminating omo_r1_motor_node")
       rospy.loginfo("Shutting down. velocity will be 0")
-      self.ph.close_port()
+      if self.model_name == 'r1d2':
+         self.ph.close_port()
 
 if __name__ == '__main__':
     rospy.init_node('omo_r1_motor_node')

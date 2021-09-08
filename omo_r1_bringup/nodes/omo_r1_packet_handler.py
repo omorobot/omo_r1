@@ -27,6 +27,11 @@ class ReadLine:
 
 class PacketHandler:
     def __init__(self):
+        self._vel = [0.0, 0.0]
+        self._enc = [0.0, 0.0]
+        self._wodom = [0.0, 0.0]
+        self._rpm = [0.0, 0.0]
+        self._wvel = [0.0, 0.0]
         port_name = rospy.get_param('~port', '/dev/ttyMotor')
         baud_rate = rospy.get_param('~baud', 115200)
         self._ser = serial.Serial(port_name, baud_rate)
@@ -54,25 +59,24 @@ class PacketHandler:
         return self._rl.readline()
 
     def read_packet(self):
-      if self.get_port_state() == True:
-         whole_packet = self.read_port()
-         if whole_packet:
-            packet = whole_packet.split(",")
-            try:
-               header = packet[0].split("#")[1]
-               
-               if header.startswith('QVW'):
-                  self._vel = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QENCOD'):
-                  self._enc = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QODO'):
-                  self._wodom = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QRPM'):
-                  self._rpm = [int(packet[1]), int(packet[2])]
-               elif header.startswith('QDIFFV'):
-                  self._wvel = [int(packet[1]), int(packet[2])]
-            except:
-               pass
+        if self.get_port_state() == True:
+            whole_packet = self.read_port()
+            if whole_packet:
+                packet = whole_packet.split(",")
+                try:
+                    header = packet[0].split("#")[1]
+                    if header.startswith('QVW'):
+                        self._vel = [int(packet[1]), int(packet[2])]
+                    elif header.startswith('QENCOD'):
+                        self._enc = [int(packet[1]), int(packet[2])]
+                    elif header.startswith('QODO'):
+                        self._wodom = [int(packet[1]), int(packet[2])]
+                    elif header.startswith('QRPM'):
+                        self._rpm = [int(packet[1]), int(packet[2])]
+                    elif header.startswith('QDIFFV'):
+                        self._wvel = [int(packet[1]), int(packet[2])]
+                except:
+                    pass
 
     def get_base_velocity(self):
         return self._vel
@@ -88,6 +92,10 @@ class PacketHandler:
    
     def get_wheel_velocity(self):
         return self._wvel
+
+    def write_odometry_reset(self):
+        self.write_port("$SODO")
+        sleep(0.05)
 
     def write_periodic_query_value(self, param):
         self.write_port("$SPERI," + str(param))
@@ -110,4 +118,4 @@ class PacketHandler:
 
     def write_port(self, buffer):
         if self.get_port_state() == True:
-            self._ser.write_port(buffer+"\r\n")
+            self._ser.write(buffer+"\r\n")
