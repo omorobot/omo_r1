@@ -5,19 +5,18 @@
   <arg name="set_port_lidar" default="/dev/ttyLiDAR"/>
   <arg name="set_port_imu" default="/dev/ttyIMU"/>
   <arg name="set_joy_en" default="0"/>
-  <arg name="set_model" default="r1"/>
+  <arg name="set_model_name" default="r1"/>
   <!--
   <include file="$(find omo_r1_bringup)/launch/omo_r1_imu.launch">
     <arg name="set_port" value="$(arg set_port_imu)"/>
   </include>
 
-  
   <include file="$(find myahrs_driver)/launch/myahrs_driver.launch" />
   -->
 
   <include file="$(find omo_r1_bringup)/launch/omo_r1_motor.launch">
     <arg name="set_port" value="$(arg set_port_motor)"/>
-    <arg name="set_model" value="$(arg set_model)"/>
+    <arg name="set_model_name" value="$(arg set_model_name)"/>
   </include>
 
   <include file="$(find omo_r1_bringup)/launch/omo_r1_lidar.launch">
