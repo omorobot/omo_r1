@@ -45,15 +45,20 @@ class PacketHandler:
 
     def set_periodic_info(self, param1):
         for idx, each in enumerate(self.incomming_info):
-            #print("$cREGI," + str(idx) + "," + each)
             self.write_port("$SREGI," + str(idx) + "," + each)
 
         self.write_port("$SPERI," + str(param1))
         sleep(0.01)
-        self.write_port("$SPEEN,1")
+        self.write_periodic_query_enable(1)
+        sleep(0.01)
+        self.write_periodic_query_enable(1)
 
     def get_port_state(self):
         return self._ser.isOpen()
+    
+    def close_port(self):
+        print("Port close")
+        self._ser.close()
         
     def read_port(self):
         return self._rl.readline()
@@ -62,6 +67,7 @@ class PacketHandler:
         if self.get_port_state() == True:
             whole_packet = self.read_port()
             if whole_packet:
+                #rospy.loginfo(whole_packet)
                 packet = whole_packet.split(",")
                 try:
                     header = packet[0].split("#")[1]

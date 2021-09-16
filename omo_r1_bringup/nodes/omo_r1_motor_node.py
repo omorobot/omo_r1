@@ -58,7 +58,7 @@ class OMOR1MotorNode:
          self.ph = PacketHandler()
          self.ph.write_odometry_reset()
          sleep(0.1)
-         self.ph.incomming_info = ['QENCOD', 'QODO', 'QDIFFV']
+         self.ph.incomming_info = ['QENCOD', 'QODO', 'QDIFFV', '0', '0']
          self.ph.set_periodic_info(50)
          sleep(0.1)
       elif self.model_name == 'r1d2':
@@ -235,7 +235,7 @@ class OMOR1MotorNode:
 
          odom_left_wheel = float(self.ph.get_wheel_odom()[0])
          odom_right_wheel = float(self.ph.get_wheel_odom()[1])
-         rospy.loginfo('V= {}, W= {}, odo_l: {} odo_r:{}'.format(lin_vel_x, ang_vel_z,odom_left_wheel, odom_right_wheel))
+         #rospy.loginfo('V= {}, W= {}, odo_l: {} odo_r:{}'.format(lin_vel_x, ang_vel_z,odom_left_wheel, odom_right_wheel))
          rpm_left_wheel = int(self.ph.get_wheel_rpm()[0])
          rpm_right_wheel = int(self.ph.get_wheel_rpm()[1])
 
@@ -404,8 +404,7 @@ class OMOR1MotorNode:
    def __del__(self):
       print("terminating omo_r1_motor_node")
       rospy.loginfo("Shutting down. velocity will be 0")
-      if self.model_name == 'r1d2':
-         self.ph.close_port()
+      self.ph.close_port()
 
 if __name__ == '__main__':
     rospy.init_node('omo_r1_motor_node')
