@@ -1,5 +1,5 @@
 <launch>
-  <arg name="set_model_name"  default="r1"/>
+  <arg name="set_model_name"  default="r1d2"/>
   <arg name="set_multi_robot_name" default=""/>
   <!-- launching state publishers -->
   <include file="$(find omo_r1_bringup)/launch/omo_r1_remote_G2.launch">
