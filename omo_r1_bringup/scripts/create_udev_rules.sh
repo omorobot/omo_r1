@@ -8,7 +8,7 @@ echo "Motor Driver (USB Serial from RS232) : /dev/ttyUSBx to /dev/ttyMotor :"
 if [ -f "/etc/udev/rules.d/98-omo-r1.rules" ]; then
     echo "98-omo-r1.rules file already exist."
 else 
-    echo 'SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", MODE:="0666", GROUP:="dialout", SYMLINK+="ttyMotor"' > /etc/udev/rules.d/98-omo-r1.rules
+    echo 'SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE:="0666", GROUP:="dialout", SYMLINK+="ttyMotor"' > /etc/udev/rules.d/98-omo-r1.rules
     
     echo '98-omo-r1.rules created'
 fi
@@ -24,11 +24,11 @@ else
 fi
 
 echo ""
-echo "YD LiDAR (USB Serial) : /dev/ttyUSBx to /dev/ttyLiDAR :"
+echo "YD LiDAR (USB Serial) : /dev/ttyUSBx to /dev/ydlidar :"
 if [ -f "/etc/udev/rules.d/ydlidar.rules" ]; then
     echo "ydlidar.rules file already exist."
 else 
-    echo 'KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE:="0666", GROUP:="dialout",  SYMLINK+="ttyLiDAR"' >/etc/udev/rules.d/97-ydlidar.rules
+    echo 'KERNEL=="ttyUSB*", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE:="0666", GROUP:="dialout",  SYMLINK+="ydlidar"' >/etc/udev/rules.d/97-ydlidar.rules
     
     echo 'ydlidar.rules created'
 fi
