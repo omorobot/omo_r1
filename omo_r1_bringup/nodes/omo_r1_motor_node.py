@@ -220,7 +220,7 @@ class OMOR1MotorNode:
          odo_l = self.ph._wodom[0]
          odo_r = self.ph._wodom[1]
          trans_vel = self.ph._vel[0]
-         orient_vel = -self.ph._vel[1]
+         orient_vel = self.ph._vel[1]
          vel_z = self.ph._gyro[2]
          roll_imu = self.ph._imu[0]
          pitch_imu = self.ph._imu[1]
