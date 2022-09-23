@@ -5,7 +5,7 @@
   <arg name="set_port_lidar" default="/dev/ttyLiDAR"/>
   <arg name="set_port_imu" default="/dev/ttyIMU"/>
   <arg name="set_joy_en" default="0"/>
-  <arg name="set_model_name" default="r1"/>
+  <arg name="set_model_name" default="r1d2"/>
   <!--
   <include file="$(find omo_r1_bringup)/launch/omo_r1_imu.launch">
     <arg name="set_port" value="$(arg set_port_imu)"/>
